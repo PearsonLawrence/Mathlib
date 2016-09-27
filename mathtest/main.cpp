@@ -2,7 +2,7 @@
 #include <cstdio>
 #include "test.h"
 #include <cmath>
-
+#include "vec2.h"
 int main()
 {
 	//a
@@ -18,6 +18,15 @@ int main()
 	//e
 	assert(inner(1, 10, 5, 2, 5, 3) == 67);
 	//f
+	assert((vec2{ 0,0 } == vec2{ 0,0 }));
+	assert((vec2{ 0,0 } != vec2{ 0,0 }));
+	assert(((vec2{ 0,0 } -= vec2{ 0,0 }) == vec2{ 0,0 }));
+	assert(((vec2{ 0,0 } += vec2{ 0,0 }) == vec2{ 0,0 }));
+	assert((vec2{ 0,0 } - 0.f) == vec2{ 0,0 });
+	assert((vec2{ 0,0 } + 0.f) == vec2{ 0,0 });
+	assert((vec2{ 0,0 } / 0.f) == vec2{ 0,0 });
+	assert((vec2{ 0,0 } * 0.f) == vec2{ 0,0 });
+	assert(magnitude(vec2{ 0,1 }) == 1);
 
 	
 		getchar();
