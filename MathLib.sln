@@ -10,6 +10,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mathtest", "mathtest\mathte
 		{7557B928-0244-4241-A502-9F4F43469D35} = {7557B928-0244-4241-A502-9F4F43469D35}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "components", "components\components.vcxproj", "{823DCA9A-94F1-492B-9D4C-CBD330EC4D7E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7557B928-0244-4241-A502-9F4F43469D35} = {7557B928-0244-4241-A502-9F4F43469D35}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -34,6 +39,14 @@ Global
 		{A1A506BD-92CE-403F-A20A-A8D00615683C}.Release|x64.Build.0 = Release|x64
 		{A1A506BD-92CE-403F-A20A-A8D00615683C}.Release|x86.ActiveCfg = Release|Win32
 		{A1A506BD-92CE-403F-A20A-A8D00615683C}.Release|x86.Build.0 = Release|Win32
+		{823DCA9A-94F1-492B-9D4C-CBD330EC4D7E}.Debug|x64.ActiveCfg = Debug|x64
+		{823DCA9A-94F1-492B-9D4C-CBD330EC4D7E}.Debug|x64.Build.0 = Debug|x64
+		{823DCA9A-94F1-492B-9D4C-CBD330EC4D7E}.Debug|x86.ActiveCfg = Debug|Win32
+		{823DCA9A-94F1-492B-9D4C-CBD330EC4D7E}.Debug|x86.Build.0 = Debug|Win32
+		{823DCA9A-94F1-492B-9D4C-CBD330EC4D7E}.Release|x64.ActiveCfg = Release|x64
+		{823DCA9A-94F1-492B-9D4C-CBD330EC4D7E}.Release|x64.Build.0 = Release|x64
+		{823DCA9A-94F1-492B-9D4C-CBD330EC4D7E}.Release|x86.ActiveCfg = Release|Win32
+		{823DCA9A-94F1-492B-9D4C-CBD330EC4D7E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
