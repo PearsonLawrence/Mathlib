@@ -37,7 +37,8 @@ NOTE: YOU MUST CALL initContext for any of the functions to work!
 #define KEY_LEFT	  263
 #define KEY_DOWN	  264
 #define KEY_UP		  265
-
+#define KEY_LEFT_SHIFT   340
+#define KEY_RIGHT_SHIFT   344
 #define MOUSE_BUTTON_RIGHT	1
 #define MOUSE_BUTTON_LEFT	0
 
