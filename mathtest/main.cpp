@@ -5,7 +5,6 @@
 #include "vec2.h"
 #include "vec3.h"
 #include "flops.h"
-#include <cfloat>
 int main()
 {
 	//a
@@ -65,6 +64,36 @@ int main()
 
 	assert((crossProduct(vec3{ 0,1,0 }, vec3{ 1,0,0 }) == vec3{ 0,0,-1 }));
 
+	assert(fequals(lerp(.23, 124, 0), .23));
+	assert(fequals(lerp(.23, 124, 1), 124));
+
+	assert(fequals(quadBezier(15, 40, 21, 0), 15));
+	assert(fequals(quadBezier(15, 40, 21, 1), 21));
+
+	
+
+	assert(fequals(hermitSpline(15, 40, 21, 10, 0), 15));
+	assert(fequals(hermitSpline(15, 40, 21, 10, 1), 21));
+
+	float yeah = cardinalSpline(15, 40, 21, .1f, 1);
+	assert(fequals(cardinalSpline(15, 40, 21, .2f, 0), 15));
+	assert(fequals(cardinalSpline(15, 40, 21, .1f, 1), 21));
+
+
+	assert(fequals(catRomSpline(15, 40, 21, 0), 15));
+	assert(fequals(catRomSpline(15, 40, 21, 1), 21));
+
+
+
+
+
+
+
+
+	//assert(hermitSpline(0,,1,))
+
+	//assert(fequals(quadBezier(15, 40, 21, 0), 15));
+	//assert(fequals(quadBezier(15, 40, 21, 1), 21));
 		getchar();
 		return 0;
 }
