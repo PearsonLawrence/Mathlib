@@ -3,7 +3,8 @@
 
 transform::transform() : facing(0), position({0,0}), scale({28,8})
 {
-
+	velocity1 = 5;
+	velocity2 = 5;
 
 	UpKey = 'W';
 	DownKey = 'S';
@@ -12,12 +13,13 @@ transform::transform() : facing(0), position({0,0}), scale({28,8})
 	SprintKey = KEY_LEFT_SHIFT;
 }
 
-transform::transform(float x, float y, int Up, int down, int left, int right, int sprint)
+transform::transform(float x, float y, int Up, int down, int left, int right, int sprint, float vely, float velx)
 {
 
 	position.x = x;
 	position.y = y;
-
+	velocity1 = vely;
+	velocity2 = velx;
 	scale.x = 28;
 	scale.y = 8;
 	facing = 0;
@@ -27,12 +29,13 @@ transform::transform(float x, float y, int Up, int down, int left, int right, in
 	LeftKey = left;
 	SprintKey = sprint;
 }
-transform::transform(transform x, transform y, int Up, int down, int left, int right, int sprint)
+transform::transform(transform x, transform y, int Up, int down, int left, int right, int sprint,float vely, float velx)
 {
 
 	position.x = x.position.x;
 	position.y = y.position.y;
-
+	velocity1 = vely ;
+	velocity2 = velx ;
 	scale.x = 28;
 	scale.y = 8;
 	facing = 0;
@@ -53,39 +56,8 @@ void transform::serDirection(const vec2 & dir)
 	facing = ::angle(dir);
 }
 
-void transform::debugUpdate()
+void transform::debugUpdate() 
 {
-
-
-	if (sfw::getKey(UpKey))
-	{
-		position += getDirection() * 6;
-
-
-	}
-	if (sfw::getKey(DownKey))
-	{
-		position -= getDirection() * 6;
-	}
-	if (sfw::getKey(LeftKey))
-	{
-		facing -= sfw::getDeltaTime() * 5;
-	}
-	if (sfw::getKey(RightKey))
-	{
-		facing += sfw::getDeltaTime() * 5;
-	}
-
-	if (sfw::getKey(UpKey) && sfw::getKey(SprintKey))
-	{
-		position += getDirection() * 10;
-
-
-	}
-	if (sfw::getKey(DownKey) && sfw::getKey(SprintKey))
-	{
-		position -= getDirection() * 10;
-	}
 	
 
 
@@ -113,6 +85,7 @@ void transform::debugUpdate()
 
 void transform::debugDraw()
 {
+
 	sfw::drawCircle(position.x, 
 		                position.y, 12);
 	vec2 upEnd = position - perp(getDirection()) * 20;
@@ -124,9 +97,9 @@ void transform::debugDraw()
 	sfw::drawLine(position.x, position.y,
 		dirEnd.x, dirEnd.y, GREEN);
 	
-	position += getDirection();
+	/*position += getDirection();
 	position -= getDirection();
-
+*/
 
 	
 }
