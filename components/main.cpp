@@ -8,7 +8,7 @@
 
 int main()
 {
-	
+	unsigned s = sfw::loadTextureMap("./res/1.png");
 
 	sfw::initContext(800, 600);
 	
@@ -55,11 +55,11 @@ int main()
 */
 
 		playerRigidbody.integrate(trans, deltatime);
-		playerLoco.integrate(playerRigidbody, deltatime);
+		playerLoco.integrate(trans, playerRigidbody, deltatime);
 		trans.debugDraw();
 		trans.debugUpdate();
 		playerctrl.update(playerLoco);
-
+		playerRigidbody.debugDraw(trans);
 		/*float size = 100;
 		for (int i = 0; i < size; ++i)
 		{

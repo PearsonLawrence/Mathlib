@@ -1,6 +1,9 @@
 #include "transform.h"
 #include "sfwdraw.h"
 
+
+//unsigned s = sfw::loadTextureMap("./res/1.png");
+
 transform::transform() : facing(0), position({0,0}), scale({28,8})
 {
 	velocity1 = 5;
@@ -46,6 +49,11 @@ transform::transform(transform x, transform y, int Up, int down, int left, int r
 	SprintKey = sprint;
 }
 
+vec2 transform::getUp()
+{
+	return -perp(getDirection());
+}
+
 vec2 transform::getDirection()
 {
 	return fromAngle(facing);
@@ -85,17 +93,18 @@ void transform::debugUpdate()
 
 void transform::debugDraw()
 {
-
+	//sfw::drawTexture(s, position.x - 15, position.y + 15, 10, 5, 0, false, 0, WHITE);
 	sfw::drawCircle(position.x, 
 		                position.y, 12);
+
 	vec2 upEnd = position - perp(getDirection()) * 20;
 	sfw::drawLine(position.x, position.y,
-		upEnd.x, upEnd.y, RED);
+		upEnd.x, upEnd.y, GREEN);
 
 
 	vec2 dirEnd = position + getDirection()*20;
 	sfw::drawLine(position.x, position.y,
-		dirEnd.x, dirEnd.y, GREEN);
+		dirEnd.x, dirEnd.y, BLUE);
 	
 	/*position += getDirection();
 	position -= getDirection();

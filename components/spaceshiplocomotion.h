@@ -7,7 +7,8 @@ class Spaceshiplocomotion
 
 	float vertthrust;            //forward movement 0 - 1 value
 	float horzthrust;         // max forward movement
-	
+	float breakpower;
+	float stopAction;
 
 	float turn;              //turn -1 to 1
 	float maxturn;           // max turn
@@ -20,7 +21,7 @@ public:
 	Spaceshiplocomotion();
 	void doThrust(float value);
 	void doTurn(float value);
-
-	void integrate(RigidBody &rigidbody, float deltaTime);
+	void doStop(float value);
+	void integrate(transform &trans, RigidBody &rigidbody, float deltaTime);
 	
 };
