@@ -5,6 +5,7 @@
 #include "vec2.h"
 #include "vec3.h"
 #include "flops.h"
+#include "mat2.h"
 int main()
 {
 	//a
@@ -84,11 +85,13 @@ int main()
 	assert(fequals(catRomSpline(15, 40, 21, 1), 21));
 
 
+	
 
-
-
-
-
+	assert((operator*(mat2{ 0, 1, 2, 3 }, vec2{ 1,2 }) == vec2{ 2,8 }));
+	assert(((operator*(mat2{ 0,1,2,3 }, .5)) == mat2{ 0.f, .5f, 1.f, 1.5f }));
+	assert(((operator*(.5, mat2{ 0,1,2,3 })) == mat2{ 0.f, .5f, 1.f, 1.5f }));
+	assert((determinant(mat2{ 0,2,1,3 }) == -2));
+	assert((inverse(mat2{ 0,2,1,3 }) == mat2{ -3,2,1,0 } * .5f));
 
 	//assert(hermitSpline(0,,1,))
 

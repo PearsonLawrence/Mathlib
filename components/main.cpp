@@ -13,7 +13,7 @@ int main()
 	sfw::initContext(800, 600);
 	
 	transform trans(400, 200, 'W', 'S', 'D', 'A', KEY_RIGHT_SHIFT, 5, 5);
-	//transform trans2;
+
 	RigidBody playerRigidbody;
 
 	//transform tranz(400,200, KEY_UP, KEY_DOWN, KEY_RIGHT, KEY_LEFT, KEY_RIGHT_SHIFT, 5, 5);
@@ -33,26 +33,7 @@ int main()
 	float ang_vec = 0;
 	while (sfw::stepContext())
 	{
-		float deltatime = sfw::getDeltaTime();/*
-
-		if (sfw::getKey('W')) playerRigidbody.acceleration.y += 50.0f;
-		if (sfw::getKey('S')) playerRigidbody.acceleration.y -= 50.0f;
-		if (sfw::getKey('A')) playerRigidbody.acceleration.x -= 50.0f;
-		if (sfw::getKey('D')) playerRigidbody.acceleration.x += 50.0f;
-		if (sfw::getKey('Q')) playerRigidbody.angularAcceleration += 1.0f;
-
-		if (sfw::getKey('E')) playerRigidbody.angularAcceleration -= 1.0f;
-*/
-
-
-	
-		
-
-	/*	if (playerRigidbody.velocity.x > 200.0f) playerRigidbody.velocity.x = 200.0f;
-		if (playerRigidbody.velocity.x < -200.0f) playerRigidbody.velocity.x = -200.0f;
-		if (playerRigidbody.velocity.y > 200.0f) playerRigidbody.velocity.y = 200.0f;
-		if (playerRigidbody.velocity.y < -200.0f) playerRigidbody.velocity.y = -200.0f;
-*/
+		float deltatime = sfw::getDeltaTime();
 
 		playerRigidbody.integrate(trans, deltatime);
 		playerLoco.integrate(trans, playerRigidbody, deltatime);
@@ -60,39 +41,6 @@ int main()
 		trans.debugUpdate();
 		playerctrl.update(playerLoco);
 		playerRigidbody.debugDraw(trans);
-		/*float size = 100;
-		for (int i = 0; i < size; ++i)
-		{
-			float t1 = i / steps;
-			float t2 = (i + 1) / steps;
-
-
-			vec2 v1 = catRomSpline(start, mid, end, t1);
-			vec2 v2 = catRomSpline(start, mid, end, t2);
-
-			sfw::drawLine(v1.x, v1.y, v2.x, v2.y);
-
-		}*/
-		
-	/*	ang_vec += sfw::getDeltaTime();
-		vec2 incident = fromAngle(ang_vec) * 40;
-		float proj = dot(basis, normal(incident));
-
-		sfw::drawLine(400, 300, 400 + basis.x, 300 + basis.y, RED);
-		sfw::drawLine(400, 300, 400 + incident.x, 300 + incident.y, CYAN);
-		sfw::drawLine(400, 300, 400 + proj, 300, GREEN);*/
-		
-		//trans2.position = trans.position - trans.getDirection() * 25.f;
-
-		//trans2.facing = trans.position.x && trans.position.y;
-
-		
-		//trans2.debugUpdate();
-		//tranz.debugUpdate();
-		
-		//trans.debugDraw();
-		//trans2.debugDraw();
-		//tranz.debugDraw();
 		
 		
 	}
