@@ -1,6 +1,7 @@
 #pragma once
 
 #include "vec3.h"
+#include "vec2.h"
 // m[3] == m[1][0]
 //m[0] == mm [0][0]
 union mat3
@@ -25,3 +26,8 @@ mat3 operator*(const mat3 &A, float B);
 mat3 operator*(float A, const mat3 &B);
 float determinant(const mat3 &A);
 mat3 inverse(const mat3 &A);
+
+mat3 scale(float w, float h);
+mat3 translate(float x, float y);
+mat3 rotate(float a);
+

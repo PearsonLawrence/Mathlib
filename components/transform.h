@@ -1,7 +1,7 @@
 #pragma once
 #include "vec2.h"
 #include "sfwdraw.h"
-
+#include "mat3.h"
 class transform
 {
 
@@ -11,10 +11,10 @@ public:
 	transform(float x, float y, int Up, int down, int left, int right, int sprint, float vely, float velx);
 	transform(transform x, transform y, int Up, int down, int left, int right, int sprint, float vely, float velx);
 
-	vec2 position{ 200, 200 };
-	vec2 scale;
+	vec2 m_position;
+	vec2 m_scale;
 	vec2 playervelocity{ 0,0 };
-	float facing;
+	float m_facing;
 	int UpKey;
 	int DownKey;
 	int RightKey;
@@ -24,6 +24,8 @@ public:
 	float velocity2 = 5;
 	//void func(float param1 = 0.0f, float param2);
 	vec2 getUp();
+
+	mat3 getLocalTransform() const;
 
 	vec2 getDirection();
 	void serDirection(const vec2 &dir);

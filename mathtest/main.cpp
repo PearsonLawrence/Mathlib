@@ -6,6 +6,7 @@
 #include "vec3.h"
 #include "flops.h"
 #include "mat2.h"
+#include "mat3.h"
 int main()
 {
 	//a
@@ -92,6 +93,36 @@ int main()
 	assert(((operator*(.5, mat2{ 0,1,2,3 })) == mat2{ 0.f, .5f, 1.f, 1.5f }));
 	assert((determinant(mat2{ 0,2,1,3 }) == -2));
 	assert((inverse(mat2{ 0,2,1,3 }) == mat2{ -3,2,1,0 } * .5f));
+
+
+	assert((determinant(mat3{ 1,2,3,4,5,6,7,8,9 }) == 0));
+
+	assert((inverse(mat3{ 2,3,4,5,6,7,8,9,11 }) == mat3{ -3,-3,3,-1,10,-6,3,-6,3 } * (1.f/3)));
+	vec3 j = { 2,5,1 };
+
+	assert((scale(5, 1) * j == vec3{ 10,5,1 }));
+	assert((translate(0, 3) * j == vec3{2, 8, 1}));
+	assert((rotate(deg2rad(90))*j == vec3{ -5,2,1 }));
+	mat3 s = scale(2, 1);
+	mat3 t = translate(4, 3);
+	mat3 r = rotate(deg2rad(90));
+
+	mat3 RES = { 0,-1,0, 2,0,0, 4,3,1 };
+	bool r0 = (t*s*r == RES);
+	//
+	//if ((t*s*r) == mat3{ 0, -1, 0, 2, 0, 0, 4, 3, 1 })
+	//{
+	//	printf("true");
+	//	getchar;
+	//}
+
+	//else
+	//{
+	//	printf("false");
+	//	getchar;
+	//}
+
+
 
 	//assert(hermitSpline(0,,1,))
 

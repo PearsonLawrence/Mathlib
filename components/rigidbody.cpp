@@ -32,7 +32,7 @@ void RigidBody::addtorque(float a_torque)
 
 void RigidBody::debugDraw(transform & trans)
 {
-	vec2 p = trans.position;
+	vec2 p = trans.m_position;
 	vec2 v = p + velocity;
 	vec2 a = acceleration + v;
 
@@ -45,7 +45,7 @@ void RigidBody::integrate(transform & trans, float deltatime)
 	//perform euler integration!
 	acceleration = force / mass;
 	velocity += acceleration * deltatime + impulse / mass;
-	trans.position += velocity * deltatime;
+	trans.m_position += velocity * deltatime;
 	force = impulse = { 0,0 };
 
 	force = -velocity * drag;
@@ -53,7 +53,7 @@ void RigidBody::integrate(transform & trans, float deltatime)
 	
 	angularAcceleration = torque / mass;
 	angularVelocity = angularVelocity + angularAcceleration * deltatime;
-	trans.facing = trans.facing + angularVelocity * deltatime;
+	trans.m_facing = trans.m_facing + angularVelocity * deltatime;
 	torque = 0;
 	torque = -angularVelocity * angularDrag;
 

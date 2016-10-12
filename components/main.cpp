@@ -18,9 +18,9 @@ int main()
 
 	//transform tranz(400,200, KEY_UP, KEY_DOWN, KEY_RIGHT, KEY_LEFT, KEY_RIGHT_SHIFT, 5, 5);
 	
-	trans.position = vec2{ 400,300 };
-	trans.facing = 0;
-	trans.scale = vec2{ 12,8 };
+	trans.m_position = vec2{ 400,300 };
+	trans.m_facing = 0;
+	trans.m_scale = vec2{ 12,8 };
 	vec2 start = { 100,100 },
 		end = { 200,600 },
 		mid = { 600,200 },
