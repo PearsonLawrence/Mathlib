@@ -22,6 +22,11 @@ vec3 operator*(float lhs, const vec3 & rhs)
 	return vec3{ rhs.x * lhs, rhs.y * lhs, rhs.z * lhs};
 }
 
+vec3 operator*(const vec3 & lhs, vec3 & rhs)
+{
+	return vec3{ (lhs.x*rhs.x), (lhs.y * rhs.y), (lhs.z * rhs.z) };
+}
+
 vec3 operator/(const vec3 & lhs, float rhs)
 {
 	return vec3{ lhs.x / rhs, lhs.y / rhs, lhs.z / rhs };

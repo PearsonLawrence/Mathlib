@@ -19,6 +19,7 @@ vec3 operator-(const vec3 &lhs, const vec3 &rhs);
 //-----------------------------------------------------------scalar------------------------
 vec3 operator*(const vec3 &lhs, float rhs);
 vec3 operator*(float lhs, const vec3 &rhs);
+vec3 operator*(const vec3 &lhs, vec3 &rhs);
 vec3 operator/(const vec3 &lhs, float rhs);
 //-----------------------------------------------------------unary-negation----------------
 vec3 operator-(const vec3 &v);

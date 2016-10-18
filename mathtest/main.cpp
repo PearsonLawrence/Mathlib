@@ -72,43 +72,49 @@ int main()
 	assert(fequals(quadBezier(15, 40, 21, 0), 15));
 	assert(fequals(quadBezier(15, 40, 21, 1), 21));
 
-	
+	//
 
-	assert(fequals(hermitSpline(15, 40, 21, 10, 0), 15));
-	assert(fequals(hermitSpline(15, 40, 21, 10, 1), 21));
+	//assert(fequals(hermitSpline(15, 40, 21, 10, 0), 15));
+	//assert(fequals(hermitSpline(15, 40, 21, 10, 1), 21));
 
-	float yeah = cardinalSpline(15, 40, 21, .1f, 1);
-	assert(fequals(cardinalSpline(15, 40, 21, .2f, 0), 15));
-	assert(fequals(cardinalSpline(15, 40, 21, .1f, 1), 21));
-
-
-	assert(fequals(catRomSpline(15, 40, 21, 0), 15));
-	assert(fequals(catRomSpline(15, 40, 21, 1), 21));
+	//float yeah = cardinalSpline(15, 40, 21, .1f, 1);
+	//assert(fequals(cardinalSpline(15, 40, 21, .2f, 0), 15));
+	//assert(fequals(cardinalSpline(15, 40, 21, .1f, 1), 21));
 
 
-	
-
-	assert((operator*(mat2{ 0, 1, 2, 3 }, vec2{ 1,2 }) == vec2{ 2,8 }));
-	assert(((operator*(mat2{ 0,1,2,3 }, .5)) == mat2{ 0.f, .5f, 1.f, 1.5f }));
-	assert(((operator*(.5, mat2{ 0,1,2,3 })) == mat2{ 0.f, .5f, 1.f, 1.5f }));
-	assert((determinant(mat2{ 0,2,1,3 }) == -2));
-	assert((inverse(mat2{ 0,2,1,3 }) == mat2{ -3,2,1,0 } * .5f));
+	//assert(fequals(catRomSpline(15, 40, 21, 0), 15));
+	//assert(fequals(catRomSpline(15, 40, 21, 1), 21));
 
 
-	assert((determinant(mat3{ 1,2,3,4,5,6,7,8,9 }) == 0));
+	//
 
-	assert((inverse(mat3{ 2,3,4,5,6,7,8,9,11 }) == mat3{ -3,-3,3,-1,10,-6,3,-6,3 } * (1.f/3)));
-	vec3 j = { 2,5,1 };
+	//assert((operator*(mat2{ 0, 1, 2, 3 }, vec2{ 1,2 }) == vec2{ 2,8 }));
+	//assert(((operator*(mat2{ 0,1,2,3 }, .5)) == mat2{ 0.f, .5f, 1.f, 1.5f }));
+	//assert(((operator*(.5, mat2{ 0,1,2,3 })) == mat2{ 0.f, .5f, 1.f, 1.5f }));
+	//assert((determinant(mat2{ 0,2,1,3 }) == -2));
+	//assert((inverse(mat2{ 0,2,1,3 }) == mat2{ -3,2,1,0 } * .5f));
 
-	assert((scale(5, 1) * j == vec3{ 10,5,1 }));
-	assert((translate(0, 3) * j == vec3{2, 8, 1}));
-	assert((rotate(deg2rad(90))*j == vec3{ -5,2,1 }));
-	mat3 s = scale(2, 1);
-	mat3 t = translate(4, 3);
-	mat3 r = rotate(deg2rad(90));
 
-	mat3 RES = { 0,-1,0, 2,0,0, 4,3,1 };
-	bool r0 = (t*s*r == RES);
+	//assert((determinant(mat3{ 1,2,3,4,5,6,7,8,9 }) == 0));
+
+	//assert((inverse(mat3{ 2,3,4,5,6,7,8,9,11 }) == mat3{ -3,-3,3,-1,10,-6,3,-6,3 } * (1.f/3)));
+	//vec3 j = { 2,5,1 };
+
+	//assert((scale(5, 1) * j == vec3{ 10,5,1 }));
+	//assert((translate(0, 3) * j == vec3{2, 8, 1}));
+	//assert((rotate(deg2rad(90))*j == vec3{ -5,2,1 }));
+	//mat3 s = scale(2, 1);
+	//mat3 t = translate(4, 3);
+	//mat3 r = rotate(deg2rad(90));
+
+	//mat3 RES = { 0,-1,0, 2,0,0, 4,3,1 };
+	//bool r0 = (t*s*r == RES);
+
+	assert(mat3identity() == mat3identity());
+	assert(mat3identity() * mat3identity() == mat3identity());
+
+	assert(((puzzle()) == vec3{ { (2 * sqrtf(2)), (-6 - 2 * sqrtf(2)), 0 } }));
+	//printf("%f, %f, %f", puzzle, puzzle, puzzle);
 	//
 	//if ((t*s*r) == mat3{ 0, -1, 0, 2, 0, 0, 4, 3, 1 })
 	//{
@@ -128,6 +134,9 @@ int main()
 
 	//assert(fequals(quadBezier(15, 40, 21, 0), 15));
 	//assert(fequals(quadBezier(15, 40, 21, 1), 21));
+	
+
+
 		getchar();
 		return 0;
 }

@@ -16,21 +16,21 @@ transform::transform() : m_facing(0), m_position({0,0}), m_scale({28,8})
 	SprintKey = KEY_LEFT_SHIFT;
 }
 
-transform::transform(float x, float y, int Up, int down, int left, int right, int sprint, float vely, float velx)
+transform::transform(float x, float y,  float vely, float velx)
 {
 
 	m_position.x = x;
 	m_position.y = y;
 	velocity1 = vely;
 	velocity2 = velx;
-	m_scale.x = 28;
+	m_scale.x = 8;
 	m_scale.y = 8;
 	m_facing = 0;
-	UpKey = Up;
-	DownKey = down;
-	RightKey = right;
-	LeftKey = left;
-	SprintKey = sprint;
+	//UpKey = Up;
+	//DownKey = down;
+	//RightKey = right;
+	//LeftKey = left;
+	//SprintKey = sprint;
 }
 transform::transform(transform x, transform y, int Up, int down, int left, int right, int sprint,float vely, float velx)
 {
@@ -54,13 +54,27 @@ vec2 transform::getUp()
 	return -perp(getDirection());
 }
 
+
+
 mat3 transform::getLocalTransform() const
 {
 	mat3 s = scale(m_scale.x, m_scale.y);
 	mat3 t = translate(m_position.x, m_position.y);
 	mat3 r = rotate(m_facing);
-	return t * s * r;
+	return t * r * s;
 	
+}
+
+mat3 transform::getGlobalTransform() const
+{
+	if (m_parent == nullptr)
+	{
+		return getLocalTransform();
+	}
+	else
+	{
+		return m_parent->getGlobalTransform()*getLocalTransform();
+	}
 }
 
 vec2 transform::getDirection()
@@ -76,7 +90,7 @@ void transform::serDirection(const vec2 & dir)
 void transform::debugUpdate() 
 {
 	
-
+	
 
 
 	if (m_position.x < 0)
@@ -100,23 +114,27 @@ void transform::debugUpdate()
 }
 
 
-void transform::debugDraw()
+void transform::debugDraw(const mat3 &t) const
 {
 	//sfw::drawTexture(s, m_position.x - 15, m_position.y + 15, 10, 5, 0, false, 0, WHITE);
-	sfw::drawCircle(m_position.x, 
-		                m_position.y, 12, 12, RED);
+	
+	mat3 L = t * getGlobalTransform();
 
-	mat3 L = getLocalTransform();
+	vec3 pos = L[2];
 
-	vec3 pos = vec3{ m_position.x, m_position.y, 0 };
+	vec3 p_pos = m_parent ? m_parent->getGlobalTransform()[2] : pos;
 
-	vec3 right = pos + L * vec3{ 7,0,0 };
-	vec3 up =     pos + L * vec3{ 0,10 ,0 };
+	vec3 right = L * vec3{ 10, 0, 1 };
+	vec3 up    = L * vec3{ 0, 10 ,1 };
 	
 
-	sfw::drawLine(m_position.x, m_position.y, right.x, right.y, RED);
-	sfw::drawLine(m_position.x, m_position.y, up.x, up.y, GREEN);
+	sfw::drawLine(pos.x, pos.y, right.x, right.y, RED);
+	sfw::drawLine(pos.x, pos.y, up.x, up.y, GREEN);
+	sfw::drawLine(p_pos.x, p_pos.y, pos.x, pos.y, GREEN);
 
+
+	sfw::drawCircle(pos.x,
+		pos.y, 12, 12, RED);
 
 
 

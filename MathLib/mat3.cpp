@@ -89,24 +89,28 @@ mat3 operator*(const mat3 & A, const mat3 & B)
 	//1,3
 	//2,3
 	//3,3
-	return mat3{
+	return mat3
+	{
 		(A.m[0] * B.m[0]) + (A.m[3] * B.m[1]) + (A.m[6] * B.m[2]),
-		 (A.m[1] * B.m[0]) + (A.m[4] * B.m[1]) + (A.m[2] * B.m[2]),
+		 (A.m[1] * B.m[0]) + (A.m[4] * B.m[1]) + (A.m[7] * B.m[2]),
 		 (A.m[2] * B.m[0]) + (A.m[5] * B.m[1]) + (A.m[8] * B.m[2]),
+		
 		 (A.m[0] * B.m[3]) + (A.m[3] * B.m[4]) + (A.m[6] * B.m[5]),
 		 (A.m[1] * B.m[3]) + (A.m[4] * B.m[4]) + (A.m[7] * B.m[5]),
 		 (A.m[2] * B.m[3]) + (A.m[5] * B.m[4]) + (A.m[8] * B.m[5]),
+		 
 		 (A.m[0] * B.m[6]) + (A.m[3] * B.m[7]) + (A.m[6] * B.m[8]),
 		 (A.m[1] * B.m[6]) + (A.m[4] * B.m[7]) + (A.m[7] * B.m[8]),
-		 (A.m[2] * B.m[6]) + (A.m[5] * B.m[1]) + (A.m[5] * B.m[8]) };
+		 (A.m[2] * B.m[6]) + (A.m[5] * B.m[7]) + (A.m[8] * B.m[8])
+	};
 		
 }
 
 vec3 operator*(const mat3 & A, const vec3 & B)
 {
-	return vec3{ (A.m[0] * B.x) + (A.m[1] * B.y) + (A.m[2] * B.z),
-		         (A.m[3] * B.x) + (A.m[4] * B.y) + (A.m[5] * B.z),
-		         (A.m[6] * B.x) + (A.m[7] * B.y) + (A.m[8] * B.z), };
+	return vec3{ (A.m[0] * B.x) + (A.m[3] * B.y) + (A.m[6] * B.z),
+		         (A.m[1] * B.x) + (A.m[4] * B.y) + (A.m[7] * B.z),
+		         (A.m[2] * B.x) + (A.m[5] * B.y) + (A.m[8] * B.z), };
 }
 
 mat3 operator*(const mat3 & A, float B)
@@ -164,14 +168,27 @@ mat3 scale(float w, float h)
 
 mat3 translate(float x, float y)
 {
-	return mat3{ {1,0,x,
-		          0,1,y,
-		          0,0,1} };
+	return mat3{ {1,0,0,
+		          0,1,0,
+		          x,y,1} };
 }
+
 
 mat3 rotate(float a)
 {
-	return mat3{ {cos(a), -sin(a), 0, 
-		          sin(a), cos(a), 0,  
+	return mat3{ {cos(a), sin(a), 0, 
+		          -sin(a), cos(a), 0,  
 		          0 ,0,1} };
+}
+
+vec3 puzzle()
+{
+
+	vec3 puz = rotate(deg2rad(-90)) * translate(10, 0) * rotate(deg2rad(45)) 
+		* translate(4,0) * rotate(deg2rad(45)) * translate(6,4) * translate(-6,0)
+		* vec3 { 0, 0, 1 };
+
+
+
+	return puz;
 }
