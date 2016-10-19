@@ -30,6 +30,12 @@
     <ClCompile Include="SpaceshipController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="planetarymotor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="planetaryRender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="transform.h">
@@ -42,6 +48,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SpaceshipController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="planetarymotor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="planetaryRender.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

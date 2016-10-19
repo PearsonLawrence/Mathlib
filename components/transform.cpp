@@ -16,7 +16,7 @@ transform::transform() : m_facing(0), m_position({0,0}), m_scale({28,8})
 	SprintKey = KEY_LEFT_SHIFT;
 }
 
-transform::transform(float x, float y,  float vely, float velx)
+transform::transform(float x, float y,  float vely, float velx,float m_size,  unsigned m_COLOR)
 {
 
 	m_position.x = x;
@@ -26,6 +26,8 @@ transform::transform(float x, float y,  float vely, float velx)
 	m_scale.x = 8;
 	m_scale.y = 8;
 	m_facing = 0;
+	COLOR = m_COLOR;
+	size = m_size;
 	//UpKey = Up;
 	//DownKey = down;
 	//RightKey = right;
@@ -128,13 +130,13 @@ void transform::debugDraw(const mat3 &t) const
 	vec3 up    = L * vec3{ 0, 10 ,1 };
 	
 
-	sfw::drawLine(pos.x, pos.y, right.x, right.y, RED);
-	sfw::drawLine(pos.x, pos.y, up.x, up.y, GREEN);
-	sfw::drawLine(p_pos.x, p_pos.y, pos.x, pos.y, GREEN);
+	//sfw::drawLine(pos.x, pos.y, right.x, right.y, RED);
+	//sfw::drawLine(pos.x, pos.y, up.x, up.y, GREEN);
+	//sfw::drawLine(p_pos.x, p_pos.y, pos.x, pos.y, GREEN);
 
 
 	sfw::drawCircle(pos.x,
-		pos.y, 12, 12, RED);
+		pos.y, size, 12, COLOR);
 
 
 

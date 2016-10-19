@@ -8,7 +8,7 @@ class transform
 public:
 	//unsigned s = sfw::loadTextureMap("./res/1.png");
 	transform();
-	transform(float x, float y,  float vely, float velx);
+	transform(float x, float y,  float vely, float velx, float m_size,  unsigned m_COLOR);
 	transform(transform x, transform y, int Up, int down, int left, int right, int sprint, float vely, float velx);
 
 
@@ -19,7 +19,10 @@ public:
 	vec2 m_position;
 	vec2 m_scale;
 	vec2 playervelocity{ 0,0 };
+	unsigned COLOR = 0;
 	float m_facing;
+	float size;
+	
 	int UpKey;
 	int DownKey;
 	int RightKey;
