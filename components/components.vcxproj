@@ -122,6 +122,7 @@
     <ClCompile Include="planetarymotor.cpp" />
     <ClCompile Include="planetaryRender.cpp" />
     <ClCompile Include="rigidbody.cpp" />
+    <ClCompile Include="shipRender.cpp" />
     <ClCompile Include="SpaceshipController.cpp" />
     <ClCompile Include="spaceshiplocomotion.cpp" />
     <ClCompile Include="transform.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="planetarymotor.h" />
     <ClInclude Include="planetaryRender.h" />
     <ClInclude Include="rigidbody.h" />
+    <ClInclude Include="shipRender.h" />
     <ClInclude Include="SpaceshipController.h" />
     <ClInclude Include="spaceshiplocomotion.h" />
     <ClInclude Include="transform.h" />

@@ -7,7 +7,7 @@
 #include "SpaceshipController.h"
 #include "planetarymotor.h"
 #include "planetaryRender.h"
-
+#include "shipRender.h"
 int main()
 {
 	unsigned s = sfw::loadTextureMap("./res/1.png");
@@ -18,25 +18,25 @@ int main()
 
 
 
-	transform sun(400, 300, 5, 5,20, YELLOW);
-	transform sun2(400, 300, 5, 5, 20, YELLOW);
-	transform sun3(400, 300, 5, 5, 20, YELLOW);
-	transform sun4(400, 300, 5, 5, 20, YELLOW);
-	transform sun5(400, 300, 5, 5, 20, YELLOW);
+	transform sun(400, 300, 5, 5,70, YELLOW);
+	transform sun2(400, 300, 5, 5, 70, YELLOW);
+	transform sun3(400, 300, 5, 5, 70, YELLOW);
+	transform sun4(400, 300, 5, 5, 70, YELLOW);
+	transform sun5(400, 300, 5, 5, 70, YELLOW);
 
-	transform trans(400, 200,  5, 5, 20, RED);
+	transform trans(400, 200,  5, 5, 5, RED);
 	transform wrist1(0, -0.1f, 5, 5, 20, RED);
 	transform Shoulder(10, 0, 5, 5, 20, RED);
 	transform elbow(0, -1, 5, 5, 20, RED);
 	transform wrist2(0, -0.1f, 5, 5, 10, RED);
 	transform Shoulder2(-10, 0, 5, 5,  10, RED);
 	transform elbow2(0, -1, 5, 5,  10, RED);
-	transform Earth(10, 1, 5, 5, 10, GREEN);
-	transform Mars(15, 2,5,5, 10, RED);
-	transform jupiter(20, 3, 5, 5, 10, RED);
-	transform saturn(25, 4, 5, 5, 10, CYAN);
-	transform venus(5, 0, 5, 5, 10, BLACK);
-	transform moon1(.35, 0, 5, 5, 5, WHITE);
+	transform Earth(10, 1, 5, 5, 20, GREEN);
+	transform Mars(15, 2,5,5, 30, RED);
+	transform jupiter(20, 3, 5, 5, 40, RED);
+	transform saturn(25, 4, 5, 5, 50, CYAN);
+	transform venus(5, 0, 5, 5, 15, BLACK);
+	transform moon1(.15, 0, 5, 5, 5, WHITE);
 
 	RigidBody playerRigidbody;
 	RigidBody elbowrigidbody;
@@ -47,25 +47,25 @@ int main()
 	RigidBody shoulder2Rigidbody;
 	RigidBody sunBody;
 	PlanetaryMotor sunmotor;
-	sunmotor.m_rotationSpeed = 1.1;
+	sunmotor.m_rotationSpeed = .50;
 	RigidBody sunBody2;
 	PlanetaryMotor sunmotor2;
-	sunmotor2.m_rotationSpeed = 1;
+	sunmotor2.m_rotationSpeed = .40;
 
 	RigidBody sunBody3;
 	PlanetaryMotor sunmotor3;
-	sunmotor3.m_rotationSpeed = .80;
+	sunmotor3.m_rotationSpeed = .20;
 
 	RigidBody sunBody4;
 	PlanetaryMotor sunmotor4;
-	sunmotor4.m_rotationSpeed = .75;
+	sunmotor4.m_rotationSpeed = .15;
 
 	RigidBody sunBody5;
 	RigidBody EarthBody;
 	PlanetaryMotor sunmotor5;
 	PlanetaryMotor Earthmotor;
-	sunmotor5.m_rotationSpeed = .70;
-	Earthmotor.m_rotationSpeed = 4;
+	sunmotor5.m_rotationSpeed = .10;
+	Earthmotor.m_rotationSpeed = 2;
 
 
 
@@ -96,9 +96,11 @@ int main()
 		mid = { 600,200 },
 		e_tan = { 200, 0},
 		s_tan = { 400, 200 };
-	/*Spaceshiplocomotion playerskell;
-	spaceshipcontroller skelcontroller(KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_DOWN, ' ');*/
+	Spaceshiplocomotion playerskell;
+	spaceshipcontroller skelcontroller(KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_DOWN, ' ');
 	Spaceshiplocomotion playerShoulder;
+	spaceshipcontroller playerctrl('A', 'D', 'W', 'S', ' ');
+	Spaceshiplocomotion playerloco;
 	spaceshipcontroller shoulderctrl('A', 'D', ' ', ' ', ' ');
 	Spaceshiplocomotion playerElbow;
 	spaceshipcontroller elbowctrl('F', 'H', ' ', ' ', ' ');
@@ -110,13 +112,34 @@ int main()
 	spaceshipcontroller elbowctrl2('R', 'Y', ' ', ' ', ' ');
 	Spaceshiplocomotion playerWrist2;
 	spaceshipcontroller wristctrl2('U', 'O', ' ', ' ', ' ');
+	shipRender tranz;
 
 	vec2 basis = { 40, 0};
 	float steps = 100;
 	float ang_vec = 0;
+
+	vec2 cameraPosition = vec2{ 0,0 };
+
 	while (sfw::stepContext())
 	{
 		float deltatime = sfw::getDeltaTime();
+
+
+		playerctrl.update(playerloco);
+		playerloco.integrate(trans, playerRigidbody, deltatime);
+		playerRigidbody.integrate(trans, deltatime);
+
+		mat3 ScaleC = scale(10, 10);
+		vec2 gp = trans.getGlobalPosition();
+		cameraPosition = lerp(cameraPosition, gp, 0.05f);
+		if (sfw::getKey('M'))
+		{
+			ScaleC = scale(3, 3);
+		}
+		mat3 proj = translate(400, 200) * ScaleC;
+		mat3 view = inverse(translate(cameraPosition.x, cameraPosition.y));
+		mat3 camera = proj * view;
+
 
 		sunmotor.update(sunBody);
 		Earthmotor.update(EarthBody);
@@ -130,32 +153,35 @@ int main()
 		sunBody3.integrate(sun3, deltatime);
 		sunBody4.integrate(sun4, deltatime);
 		sunBody5.integrate(sun5, deltatime);
-		sun.debugDraw();
-		sun2.debugDraw();
-		sun3.debugDraw();
-		sun4.debugDraw();
-		sun5.debugDraw();
+		sun.debugDraw(camera);
+		sun2.debugDraw(camera);
+		sun3.debugDraw(camera);
+		sun4.debugDraw(camera);
+		sun5.debugDraw(camera);
+
+		
+		tranz.draw(trans, camera);
+		trans.debugDraw(camera);
+		playerRigidbody.debugDraw(trans);
+
+		Earth.debugDraw(camera);
+		Mars.debugDraw(camera);
+		saturn.debugDraw(camera);
+		jupiter.debugDraw(camera);
+		venus.debugDraw(camera);
+		moon1.debugDraw(camera);
 
 
 
-		Earth.debugDraw();
-		Mars.debugDraw();
-		saturn.debugDraw();
-		jupiter.debugDraw();
-		venus.debugDraw();
-		moon1.debugDraw();
+		vec3 tp = camera * vec3{ cameraPosition.x, cameraPosition.y, 1 };
+		sfw::drawCircle(tp.x, tp.y, 30);
 
 
 
-
-
-
-
-
-		// all the updates
-		/*skelcontroller.update(playerskell);
-		playerskell.integrate(trans, playerRigidbody, deltatime);
-		playerRigidbody.integrate(trans, deltatime);*/
+		//// all the updates
+		//skelcontroller.update(playerskell);
+		//playerskell.integrate(trans, playerRigidbody, deltatime);
+		//playerRigidbody.integrate(trans, deltatime);
 
 
 		//shoulderctrl.update(playerShoulder);
@@ -199,25 +225,25 @@ int main()
 		//elbow2.debugDraw();
 		//Shoulder2.debugDraw();
 
-		//elbow.debugUpdate(trans.getLocalTransform);
-		
+		/*elbow.debugUpdate(trans.getLocalTransform);
+		*/
 		
 		// position of tank after all transformations
-		mat3 testTrans = translate(-6, 9) * rotate(deg2rad(253.047f));	// to start pos and rot
-		
-		vec2 pos = testTrans[2].xy;
+		//mat3 testTrans = translate(-6, 9) * rotate(deg2rad(253.047f));	// to start pos and rot
+		//
+		//vec2 pos = testTrans[2].xy;
 
-		// desired direction to face target
-		vec2 desiredDir = (vec2{ -22,-5 } - pos);
-		vec2 currentDir = fromAngle(deg2rad(253.047f));
+		//// desired direction to face target
+		//vec2 desiredDir = (vec2{ -22,-5 } - pos);
+		//vec2 currentDir = fromAngle(deg2rad(253.047f));
 
-		float rotDelta = angleBetween(desiredDir, currentDir);	// necessary angle of rotation
-		
-		testTrans = testTrans * rotate(-rotDelta) * translate(magnitude(desiredDir),0);
+		//float rotDelta = angleBetween(desiredDir, currentDir);	// necessary angle of rotation
+		//
+		//testTrans = testTrans * rotate(-rotDelta) * translate(magnitude(desiredDir),0);
 
-		pos = testTrans[2].xy;
+		//pos = testTrans[2].xy;
 
-		printf("YEAHSON");
+		//printf("YEAHSON");
 		
 	}
 

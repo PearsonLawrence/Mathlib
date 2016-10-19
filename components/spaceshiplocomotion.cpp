@@ -10,7 +10,7 @@ Spaceshiplocomotion::Spaceshiplocomotion()
 	maxturn = 300.0f; // max turn
 	turnSpeed = 2.0f; // rate of change for our turn
 	breakpower = 2.0f;
-	speed = 200.0f; // movement speed
+	speed = 25.0f; // movement speed
 }
 
 void Spaceshiplocomotion::doThrust(float value)

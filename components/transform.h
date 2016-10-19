@@ -36,7 +36,13 @@ public:
 	mat3 getLocalTransform() const;
 	mat3 getGlobalTransform() const;
 	vec2 getDirection();
-	void serDirection(const vec2 &dir);
+
+	vec2 getGlobalPosition() const;
+	vec2 getGlobalright() const;
+	vec2 getGlobalup() const;
+	float getGlobalAngle() const;
+
+	void setDirection(const vec2 &dir);
 	void debugUpdate();
 	void debugDraw(const mat3 &T = mat3identity()) const;
 
