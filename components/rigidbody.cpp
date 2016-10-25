@@ -30,9 +30,9 @@ void RigidBody::addtorque(float a_torque)
 	torque += a_torque;
 }
 
-void RigidBody::debugDraw(transform & trans)
+void RigidBody::debugDraw(const mat3 &t, transform & trans)
 {
-	vec2 p = trans.m_position;
+	vec2 p = (   t * trans.getGlobalTransform()   )[2].xy;
 	vec2 v = p + velocity;
 	vec2 a = acceleration + v;
 

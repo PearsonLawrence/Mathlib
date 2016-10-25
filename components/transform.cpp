@@ -1,7 +1,7 @@
 #include "transform.h"
 #include "sfwdraw.h"
-
-
+#include "shapedraw.h"
+#include "shapes.h"
 //unsigned s = sfw::loadTextureMap("./res/1.png");
 
 transform::transform() : m_facing(0), m_position({0,0}), m_scale({28,8})
@@ -146,18 +146,19 @@ void transform::debugDraw(const mat3 &t) const
 
 	vec3 p_pos = m_parent ? t * m_parent->getGlobalTransform()[2] : pos;
 
-	vec3 right = L * vec3{ 10, 0, 1 };
-	vec3 up    = L * vec3{ 0, 10 ,1 };
+	vec3 right = L * vec3{ 1, 0, 1 };
+	vec3 up    = L * vec3{ 0, 1 ,1 };
 	
 
 	sfw::drawLine(pos.x, pos.y, right.x, right.y, RED);
 	sfw::drawLine(pos.x, pos.y, up.x, up.y, GREEN);
 	sfw::drawLine(p_pos.x, p_pos.y, pos.x, pos.y, GREEN);
 
-
-	sfw::drawCircle(pos.x,
+	drawcircle(L * circle{ 0,0,size }, COLOR);
+	drawAABB(L*AABB{ 0,0,10,10 }, WHITE);
+	/*sfw::drawCircle(pos.x,
 		pos.y, size, 12, COLOR);
-
+*/
 
 
 	//vec2 upEnd = m_position - perp(getDirection()) * 20;

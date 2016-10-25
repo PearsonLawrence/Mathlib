@@ -7,6 +7,7 @@
 #include "flops.h"
 #include "mat2.h"
 #include "mat3.h"
+#include "shapes.h"
 int main()
 {
 	//a
@@ -113,7 +114,7 @@ int main()
 	assert(mat3identity() == mat3identity());
 	assert(mat3identity() * mat3identity() == mat3identity());
 
-	assert(((puzzle()) == vec3{ { (2 * sqrtf(2)), (-6 - 2 * sqrtf(2)), 0 } }));
+	//assert(((puzzle()) == vec3{ { (2 * sqrtf(2)), (-6 - 2 * sqrtf(2)), 0 } }));
 	//printf("%f, %f, %f", puzzle, puzzle, puzzle);
 	//
 	//if ((t*s*r) == mat3{ 0, -1, 0, 2, 0, 0, 4, 3, 1 })
@@ -134,9 +135,19 @@ int main()
 
 	//assert(fequals(quadBezier(15, 40, 21, 0), 15));
 	//assert(fequals(quadBezier(15, 40, 21, 1), 21));
-	
+	circle c = {0,0,5};
 
+	assert((translate(4, 0) * c == circle{ 4,0,5 }));
 
+	assert((scale(2, 1) * c == circle{ 0,0,10 }));
+	assert((scale(2, 2) * c == circle{ 0,0,10 }));
+	assert((scale(1, 2) * c == circle{ 0,0,10 }));
+
+	assert((scale(-1, 1) * c == circle{ 0,0,5 }));
+	assert((rotate(45) * c == circle{ 0,0,5 }));
+	AABB testA = { 1,2,3,4 };
+	assert((testA.min() == vec2{ -2,-2 }));
+	assert((testA.max() == vec2{ 4,6 }));
 		getchar();
 		return 0;
 }

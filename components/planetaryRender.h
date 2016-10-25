@@ -8,7 +8,11 @@ public:
 	unsigned int color;
 	float size;
 
-	void draw(transform &planetTrans);
+
+	
+
+
+	void draw(const mat3 &t, transform &planetTrans);
 
 
 };

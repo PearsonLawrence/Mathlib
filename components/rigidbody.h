@@ -19,6 +19,6 @@ public:
 	void addImpulse(const vec2 &impulse);
 	void addtorque(float a_torque);
 	float mass, drag, angularDrag;
-	void debugDraw(transform &trans);
+	void debugDraw(const mat3 &t, transform &trans);
 	void integrate(transform &trans, float deltatime);
 };

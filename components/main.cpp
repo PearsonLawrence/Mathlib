@@ -18,11 +18,11 @@ int main()
 
 
 
-	transform sun(400, 300, 5, 5,70, YELLOW);
-	transform sun2(400, 300, 5, 5, 70, YELLOW);
-	transform sun3(400, 300, 5, 5, 70, YELLOW);
-	transform sun4(400, 300, 5, 5, 70, YELLOW);
-	transform sun5(400, 300, 5, 5, 70, YELLOW);
+	transform sun(400, 300, 5, 5,0, YELLOW);
+	transform sun2(400, 300, 5, 5, 0, YELLOW);
+	transform sun3(400, 300, 5, 5, 0, YELLOW);
+	transform sun4(400, 300, 5, 5, 0, YELLOW);
+	transform sun5(400, 300, 5, 5, 0, YELLOW);
 
 	transform trans(400, 200,  5, 5, 5, RED);
 	transform wrist1(0, -0.1f, 5, 5, 20, RED);
@@ -31,12 +31,34 @@ int main()
 	transform wrist2(0, -0.1f, 5, 5, 10, RED);
 	transform Shoulder2(-10, 0, 5, 5,  10, RED);
 	transform elbow2(0, -1, 5, 5,  10, RED);
-	transform Earth(10, 1, 5, 5, 20, GREEN);
-	transform Mars(15, 2,5,5, 30, RED);
-	transform jupiter(20, 3, 5, 5, 40, RED);
-	transform saturn(25, 4, 5, 5, 50, CYAN);
-	transform venus(5, 0, 5, 5, 15, BLACK);
-	transform moon1(.15, 0, 5, 5, 5, WHITE);
+
+
+	transform Earth(10, 1, 5, 5, 0, GREEN);
+	transform Mars(15, 2,5,5, 0, RED);
+	transform jupiter(20, 3, 5, 5, 0, RED);
+	transform saturn(25, 4, 5, 5, 0, CYAN);
+	transform venus(5, 0, 5, 5, 0, BLACK);
+	transform moon1(.15, 0, 5, 5, 0, WHITE);
+
+	PlanetaryRender Earthrender(GREEN, .1);
+	PlanetaryRender marsrender(RED, .2);
+	PlanetaryRender jupiterrender(RED, .3);
+	PlanetaryRender saturnrender(CYAN, .5);
+	PlanetaryRender venusrender(BLACK, .05);
+	PlanetaryRender moonrender(WHITE, .006);
+
+	PlanetaryRender sunrender(YELLOW, 1);
+	PlanetaryRender sunrender2(YELLOW, 1);
+	PlanetaryRender sunrender3(YELLOW, 1);
+	PlanetaryRender sunrender4(YELLOW, 1);
+	PlanetaryRender sunrender5(YELLOW, 1);
+
+
+
+
+
+
+
 
 	RigidBody playerRigidbody;
 	RigidBody elbowrigidbody;
@@ -46,6 +68,10 @@ int main()
 	RigidBody wrist2rigidbody;
 	RigidBody shoulder2Rigidbody;
 	RigidBody sunBody;
+
+
+
+
 	PlanetaryMotor sunmotor;
 	sunmotor.m_rotationSpeed = .50;
 	RigidBody sunBody2;
@@ -162,16 +188,26 @@ int main()
 		
 		tranz.draw(trans, camera);
 		trans.debugDraw(camera);
-		playerRigidbody.debugDraw(trans);
+		playerRigidbody.debugDraw(camera, trans);
 
-		Earth.debugDraw(camera);
+		/*Earth.debugDraw(camera);
 		Mars.debugDraw(camera);
 		saturn.debugDraw(camera);
 		jupiter.debugDraw(camera);
 		venus.debugDraw(camera);
-		moon1.debugDraw(camera);
+		moon1.debugDraw(camera);*/
+	 Earthrender.draw(camera, Earth);
+		 marsrender.draw(camera, Mars);
+		 jupiterrender.draw(camera, jupiter);
+		 saturnrender.draw(camera, saturn);
+		 venusrender.draw(camera, venus);
+		 moonrender.draw(camera, moon1);
 
-
+		 sunrender.draw(camera, sun);
+		 sunrender2.draw(camera, sun2);
+		 sunrender3.draw(camera, sun3);
+		 sunrender4.draw(camera, sun4);
+		 sunrender5.draw(camera, sun5);
 
 		vec3 tp = camera * vec3{ cameraPosition.x, cameraPosition.y, 1 };
 		sfw::drawCircle(tp.x, tp.y, 30);
