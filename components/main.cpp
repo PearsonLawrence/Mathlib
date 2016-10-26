@@ -24,7 +24,7 @@ int main()
 	transform sun4(400, 300, 5, 5, 0, YELLOW);
 	transform sun5(400, 300, 5, 5, 0, YELLOW);
 
-	transform trans(400, 200,  5, 5, 5, RED);
+	transform trans(400, 200,  5, 5, .15, RED);
 	transform wrist1(0, -0.1f, 5, 5, 20, RED);
 	transform Shoulder(10, 0, 5, 5, 20, RED);
 	transform elbow(0, -1, 5, 5, 20, RED);
@@ -155,12 +155,14 @@ int main()
 		playerloco.integrate(trans, playerRigidbody, deltatime);
 		playerRigidbody.integrate(trans, deltatime);
 
-		mat3 ScaleC = scale(10, 10);
+		float scalenum = 10.0f;
+
+		mat3 ScaleC = scale(scalenum, scalenum);
 		vec2 gp = trans.getGlobalPosition();
 		cameraPosition = lerp(cameraPosition, gp, 0.05f);
 		if (sfw::getKey('M'))
 		{
-			ScaleC = scale(3, 3);
+			ScaleC = scale(1, 1);
 		}
 		mat3 proj = translate(400, 200) * ScaleC;
 		mat3 view = inverse(translate(cameraPosition.x, cameraPosition.y));

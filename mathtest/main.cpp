@@ -8,6 +8,7 @@
 #include "mat2.h"
 #include "mat3.h"
 #include "shapes.h"
+#include "collision.h"
 int main()
 {
 	//a
@@ -146,8 +147,15 @@ int main()
 	assert((scale(-1, 1) * c == circle{ 0,0,5 }));
 	assert((rotate(45) * c == circle{ 0,0,5 }));
 	AABB testA = { 1,2,3,4 };
-	assert((testA.min() == vec2{ -2,-2 }));
-	assert((testA.max() == vec2{ 4,6 }));
+	
+
+
+	assert((collisionDetection1D(0, 2, 1, 3).result == true));
+	assert((collisionDetection1D(0, 2, 1, 3).penetrationDepth == 1));
+	assert((collisionDetection1D(1, 3, 0, 2).penetrationDepth == 1));
+
+	assert((collisionDetection1D(0, 2, 1, 3).collision == 1));
+	assert((collisionDetection1D(1,3, 0, 2).collision == -1));
 		getchar();
 		return 0;
 }

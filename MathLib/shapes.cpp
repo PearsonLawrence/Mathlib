@@ -30,17 +30,49 @@ bool operator==(const circle & a, const circle & b)
 
 AABB operator*(const mat3 & t, const AABB & a)
 {
-	AABB retval;
+	AABB retval = a;
 
-	retval.pos = (t*vec3{ a.pos.x, a.pos.y, 1 }).xy;
+	vec3 tp[4];
+	
+	tp[0] = t * vec3{ a.min1().x, a.max1().y, 1 };
+	tp[1] = t * vec3{ a.max1().x, a.max1().y, 1 };
+	tp[2] = t * vec3{ a.min1().x, a.min1().y ,1 };
+	tp[3] = t * vec3{ a.max1().x, a.min1().y,1 };
 
 
-	retval.he = a.he;
-	float xhe = magnitude(t * vec3{ retval.he.x,0,0 });
-	float yhe = magnitude(t * vec3{ 0,retval.he.y,0 });
+	vec2 minv = tp[0].xy,
+		 maxv = tp[0].xy;
 
+	for (int i = 1; i < 4;  i++)
+	{
+		if (tp[i].x < minv.x)
+		{
+			minv.x = tp[i].x;
+		}
+		if (tp[i].x > maxv.x)
+		{
+			maxv.x = tp[i].x;
+		}
+		if (tp[i].y < minv.y)
+		{
+			minv.y = tp[i].y;
+		}
+		if (tp[i].y > maxv.y)
+		{
+			maxv.y = tp[i].y;
+		}
 
-	retval.he = {xhe, yhe};
+		//minv = { tp[i].x < tp[i].x, tp[i].y < tp[i].y };
+		//maxv = { tp[i].x > tp[i].x, tp[i].y > tp[i].y };
+	}
+
+	retval.pos = (t * vec3{ a.pos.x, a.pos.y, 1 }).xy;
+	
+
+	float halfx = (maxv.x - minv.x),
+		  halfy = (maxv.y - minv.y);
+		
+	retval.he = { halfx, halfy };
 
 	return retval;
 }
