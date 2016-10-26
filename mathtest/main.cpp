@@ -156,6 +156,18 @@ int main()
 
 	assert((collisionDetection1D(0, 2, 1, 3).collision == 1));
 	assert((collisionDetection1D(1,3, 0, 2).collision == -1));
+
+	assert(sweptDetection1D(0, 1, 5, 3, 4, 0).entryTime == .4f);
+	assert(sweptDetection1D(0, 1, -5, 3, 4, 10).result() == false);
+
+	AABB A = {0,0,2,4}, 
+		B = {2,2,2,4};
+
+	assert(boxCollision(A,B).penetrationDepth == 2);
+	assert((boxCollision(A,B).collision == vec2{1,0}));
+	assert((boxCollision(B, A).collision == vec2{ -1,0 }));
+
+
 		getchar();
 		return 0;
 }
