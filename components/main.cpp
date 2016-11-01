@@ -8,6 +8,7 @@
 #include "planetarymotor.h"
 #include "planetaryRender.h"
 #include "shipRender.h"
+#include "shapedraw.h"
 int main()
 {
 	unsigned s = sfw::loadTextureMap("./res/1.png");
@@ -214,8 +215,7 @@ int main()
 		vec3 tp = camera * vec3{ cameraPosition.x, cameraPosition.y, 1 };
 		sfw::drawCircle(tp.x, tp.y, 30);
 
-
-
+		
 		//// all the updates
 		//skelcontroller.update(playerskell);
 		//playerskell.integrate(trans, playerRigidbody, deltatime);

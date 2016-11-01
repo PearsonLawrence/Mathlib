@@ -9,13 +9,14 @@ struct circle {
 struct AABB 
 {
 	vec2 pos, he;
-
 	vec2 min1() const;
 	vec2 max1() const;
-
 };
 
-struct plane {};
+struct plane 
+{
+	vec2 pos, dir;
+};
 struct ray {};
 struct hull {};
 
@@ -26,4 +27,6 @@ bool operator==(const circle &a, const circle & b);
 AABB operator*(const mat3 &t, const AABB & a);
 ray operator*(const mat3 &t, const ray & r);
 hull operator*(const mat3 &t, const hull & h);
+
 plane operator*(const mat3 &t, const plane & p);
+bool operator==(const plane &a, const plane & b);

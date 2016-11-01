@@ -38,3 +38,18 @@ struct CollisionData
 
 CollisionData boxCollision(const AABB &A,
 	                       const AABB &B);
+
+struct CollisionDataSwept
+{
+
+	float entryTime, exitTime; // how much overlap
+	vec2 collision;        // -1 or 1
+	            // penetrationDepth * collisionNormal
+	bool result() const; // penetrationDepth > 0
+};
+
+CollisionDataSwept boxCollisionSwept(const AABB &A, const vec2 &dA,
+	                            const AABB &B, const vec2 &dB);
+
+CollisionData planeBoxCollision(const plane &p, const AABB &b);
+CollisionDataSwept SweptplaneBoxCollision(const plane &p, const AABB &b, const vec2 & vel);

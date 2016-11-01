@@ -32,13 +32,13 @@ int main()
 	assert(((vec2{ 0,0 } -vec2{ 0,0 }) == vec2{ 0,0 }));
 	assert(((vec2{ 0,0 } +vec2{ 0,0 }) == vec2{ 0,0 }));
 	assert(((vec2{ 0,0 } / 1) == vec2{ 0,0 }));
-	assert(((vec2{ 0,0 } * 1) == vec2{ 0,0 }));
+	assert(((vec2{ 0,0 } *1) == vec2{ 0,0 }));
 	assert(magnitude(vec2{ 0,1 }) == 1);
 	assert(normal(vec2{ 0,1 }) == (vec2{ 0,1 }));
 
 	//vec3
 
-	assert((vec3{ 0,0,0 } == vec3{ 0,0 ,0}));
+	assert((vec3{ 0,0,0 } == vec3{ 0,0 ,0 }));
 	assert((vec3{ 0,0,0 } != vec3{ 1,2,3 }));
 	assert(((vec3{ 0,0,0 } -= vec3{ 0,0,0 }) == vec3{ 0,0,0 }));
 	assert(((vec3{ 0,0,0 } += vec3{ 0,0,0 }) == vec3{ 0,0,0 }));
@@ -62,7 +62,7 @@ int main()
 	assert(fequals(angleBetween(vec2{ 1,1 }, vec2{ 0,1 }), angle(vec2{ 1,1 })));
 
 	assert((fromAngle(0) == vec2{ 1,0 }));
-    assert((fromAngle(deg2rad(90)) == vec2{ 0,1 }));
+	assert((fromAngle(deg2rad(90)) == vec2{ 0,1 }));
 
 	assert((crossProduct(vec3{ 1,0,0 }, vec3{ 0,1,0 }) == vec3{ 0,0,1 }));
 
@@ -136,7 +136,7 @@ int main()
 
 	//assert(fequals(quadBezier(15, 40, 21, 0), 15));
 	//assert(fequals(quadBezier(15, 40, 21, 1), 21));
-	circle c = {0,0,5};
+	circle c = { 0,0,5 };
 
 	assert((translate(4, 0) * c == circle{ 4,0,5 }));
 
@@ -147,7 +147,7 @@ int main()
 	assert((scale(-1, 1) * c == circle{ 0,0,5 }));
 	assert((rotate(45) * c == circle{ 0,0,5 }));
 	AABB testA = { 1,2,3,4 };
-	
+
 
 
 	assert((collisionDetection1D(0, 2, 1, 3).result == true));
@@ -155,17 +155,47 @@ int main()
 	assert((collisionDetection1D(1, 3, 0, 2).penetrationDepth == 1));
 
 	assert((collisionDetection1D(0, 2, 1, 3).collision == 1));
-	assert((collisionDetection1D(1,3, 0, 2).collision == -1));
+	assert((collisionDetection1D(1, 3, 0, 2).collision == -1));
 
 	assert(sweptDetection1D(0, 1, 5, 3, 4, 0).entryTime == .4f);
 	assert(sweptDetection1D(0, 1, -5, 3, 4, 10).result() == false);
 
-	AABB A = {0,0,2,4}, 
-		B = {2,2,2,4};
+	AABB A = { 0,0,2,4 },
+		B = { 2,2,2,4 };
 
-	assert(boxCollision(A,B).penetrationDepth == 2);
-	assert((boxCollision(A,B).collision == vec2{1,0}));
+	assert(boxCollision(A, B).penetrationDepth == 2);
+	assert((boxCollision(A, B).collision == vec2{ 1,0 }));
 	assert((boxCollision(B, A).collision == vec2{ -1,0 }));
+	AABB As = { 0,0,1,1 };
+	AABB Bs = { 0,10,1,1 };
+
+	assert(fequals(boxCollisionSwept(As, vec2{ 0,1 }, Bs, vec2{ 0,-1 }).entryTime, 4));
+
+	CollisionDataSwept testing =
+		boxCollisionSwept(As, vec2{ 0,-1 }, Bs, vec2{ 0,1 });
+
+	assert(fequals(boxCollisionSwept(As, vec2{ 0,-1 }, Bs, vec2{ 0,1 }).exitTime, -4));
+
+	AABB Bp = { 0,0,4,4 };
+
+	plane p1{ 0,0,0,1 };
+	plane p2{ 0,-10,0,1 };
+	plane p3{ 0,10,0,1 };
+
+	plane p4 = { vec2{6,6}, normal(vec2{-1,1}) };
+	plane p5 = { vec2{ 6,6 }, normal(vec2{ -1,-1 }) };
+
+
+
+	assert(planeBoxCollision(p1, Bp).result());
+	assert(!planeBoxCollision(p2, Bp).result());
+	assert(planeBoxCollision(p3, Bp).result());
+	assert(planeBoxCollision(p4, Bp).result());
+	assert(!planeBoxCollision(p5, Bp).result());
+
+	plane p6 = { 10,0,-1,0 };
+
+	assert(fequals(SweptplaneBoxCollision(p6, Bp, vec2{ 1,0 }).entryTime, 6.f));
 
 
 		getchar();

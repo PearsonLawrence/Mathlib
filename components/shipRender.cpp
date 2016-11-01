@@ -16,6 +16,7 @@ void shipRender::draw(const transform & ShipTransform, const mat3 & camera)
 	vec3 p4 = camera * ship * vec3{ 0, -.25,1 };
 
 	drawAABB(camera * ship * AABB{ 0, .25, .13f, .25f }, WHITE);
+	drawPlane(camera * ship * plane{0, 0, 1, 0 }, WHITE);
 
 	sfw::drawLine(p1.x, p1.y, p2.x, p2.y, WHITE);
 	sfw::drawLine(p2.x, p2.y, p4.x, p4.y, WHITE);
