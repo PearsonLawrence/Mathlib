@@ -197,6 +197,32 @@ int main()
 
 	assert(fequals(SweptplaneBoxCollision(p6, Bp, vec2{ 1,0 }).entryTime, 6.f));
 
+	vec2 verts[] = { {0,1},{1,1},{1,0},{0,0} };
+	vec2 verts2[] = { {-1,-1},{-1,1},{0,0} };
+	hull myHull(verts, 4);
+	hull otherhull(verts2, 3);
+	assert((myHull.normals[0] == vec2{ 0,1 }));
+	assert((myHull.normals[1] == vec2{ 1,0 }));
+	assert((myHull.normals[2] == vec2{ 0,-1 }));
+	assert((myHull.normals[3] == vec2{ -1,0 }));
+
+
+	assert((myHull.verticies[0] == vec2{ 0,1 }));
+	assert((myHull.verticies[1] == vec2{ 1,1 }));
+	assert((myHull.verticies[2] == vec2{ 1,0 }));
+	assert((myHull.verticies[3] == vec2{ 0,0 }));
+
+
+	hull tHull = translate(1, 0) * myHull;
+
+	assert((tHull.verticies[0] == vec2{ 1,1 }));
+	assert((tHull.verticies[1] == vec2{ 2,1 }));
+	assert((tHull.verticies[2] == vec2{ 2,0 }));
+	assert((tHull.verticies[3] == vec2{ 1,0 }));
+
+
+	assert(fequals(HullCollision(myHull, otherhull).penetrationDepth, 0));
+	assert(fequals(HullCollision(myHull, tHull).penetrationDepth, -1));
 
 		getchar();
 		return 0;

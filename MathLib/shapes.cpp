@@ -77,6 +77,29 @@ AABB operator*(const mat3 & t, const AABB & a)
 	return retval;
 }
 
+hull operator*(const mat3 & t, const hull & h)
+{
+
+	hull retval;
+
+	retval.size = h.size;
+	for (int i = 0; i < h.size; i++)
+	{
+		retval.verticies[i] = (t * vec3{ h.verticies[i].x ,h.verticies[i].y,1 }).xy;
+		retval.normals[i] = (t * vec3{ h.normals[i].x ,h.normals[i].y,0 }).xy;
+
+	}
+
+
+	return retval;
+}
+
+bool operator==(const hull & a, const hull & b)
+{
+
+	return a.verticies == b.verticies;
+}
+
 plane operator*(const mat3 & t, const plane & p)
 {
 	plane retval;
@@ -102,4 +125,34 @@ vec2 AABB::min1() const
 vec2 AABB::max1() const
 {
 	return pos + he;
+}
+
+hull::hull(const vec2 * a_vertices, unsigned a_size)
+{
+	size = a_size;
+	for (int i = 0; i < a_size; i++)
+	{
+		a_vertices[a_size];
+		
+		vec2 A = a_vertices[i] - a_vertices[i + 1];
+		if (i >= a_size - 1)
+		{
+			A = a_vertices[i] - a_vertices[0];
+		}
+		normal(A);
+
+		vec2 mid;
+
+		mid = perp(A);
+
+		normals[i] = mid;
+		verticies[i] = a_vertices[i];
+	
+		
+	}
+
+}
+
+hull::hull()
+{
 }
