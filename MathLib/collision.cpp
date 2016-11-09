@@ -180,104 +180,66 @@ CollisionDataSwept SweptplaneBoxCollision(const plane & p,  const AABB & b,
 
 CollisionData HullCollision(const hull & a, const hull & b)
 {
+	
+	int size = 0;
+	vec2 axes[32];
+
+	for (int j = 0; j < a.size; ++j) axes[size++] = a.normals[j];
+	for (int j = 0; j < b.size; ++j) axes[size++] = b.normals[j];
 	CollisionData retval;
 	retval.penetrationDepth = INFINITY;
 
-	for(int j = 0; j < a.size; j++)
+	for(int j = 0; j < size; j++)
 	{ 
-		float AM[16];
-		float AN[16];
+		vec2 &axis = axes[j];
+		
+		float aAmin = INFINITY;
+		float aAmax = -INFINITY;
+		float aBmin = INFINITY;
+		float aBmax = -INFINITY;
 		for (int i = 0; i < a.size; i++)
 		{
-			AM[i] = dot(a.verticies[i], a.normals[j]);
+			float proj = dot(axis, a.verticies[i]);
+			aAmin = fminf(proj, aAmin);
+			aAmax = fmaxf(proj, aAmax);
 		}
 		for (int i = 0; i < b.size; i++)
 		{
-			AN[i] = dot(b.verticies[i], a.normals[j]);
+			float proj = dot(axis, b.verticies[i]);
+			aBmin = fminf(proj, aBmin);
+			aBmax = fmaxf(proj, aBmax);
 		}
-		float aAmin = INT_MAX;
-		float aAmax = INT_MIN;
-		float aBmin = INT_MAX;
-		float aBmax = INT_MIN;
-		for (int i = 0; i < a.size; i++)
-		{
-
-			aAmin = fminf(aAmin, AM[i]);
-			aAmax = fmaxf(aAmax, AM[i]);
-		}
-
-		for (int i = 0; i < a.size; i++)
-		{
-
-			aBmin = fminf(aBmin, AN[i]);
-			aBmax = fmaxf(aBmax, AN[i]);
-		}
+		
 		float apDr, apDl, apD;
-
 		apDr = aAmax - aBmin;
 		apDl = aBmax - aAmin;
 		apD = fminf(apDr, apDl);
-
-		float aAH = copysignf(1, apDl - apDr);
+        float aAH = copysignf(1, apDl - apDr);
 
 		if (apD < retval.penetrationDepth)
 		{
 			retval.penetrationDepth = apD;
-			retval.collision = aAH * a.normals[j];
+			retval.collision = aAH * axis;
 		}
 		
 	}
 
-	for (int j = 0; j < b.size; j++)
-	{
-		
-		float bM[16];
-		float bN[16];
-		for (int i = 0; i < b.size; i++)
-		{
-			bM[i] = dot(a.verticies[i], b.normals[i]);
-		}
-		for (int i = 0; i < b.size; i++)
-		{
-			bN[i] = dot(b.verticies[i], b.normals[i]);
-		}
-		
-		float bAmin = INT_MAX;
-		float bAmax = INT_MIN;
-		float bBmin = INT_MAX;
-		float bBmax = INT_MIN;
-		for (int i = 0; i < b.size; i++)
-		{
-
-			bAmin = fminf(bAmin, bM[i]);
-			bAmax = fmaxf(bAmax, bM[i]);
-		}
-
-		for (int i = 0; i < b.size; i++)
-		{
-
-			bBmin = fminf(bBmin, bN[i]);
-			bBmax = fmaxf(bBmax, bN[i]);
-		}
-		float bpDr, bpDl, bpD;
-
-		bpDr = bAmax - bBmin;
-		bpDl = bBmax - bAmin;
-		bpD = fminf(bpDr, bpDl);
-
-		float bAH = copysignf(1, bpDl - bpDr);
-
-		if (bpD < retval.penetrationDepth)
-		{
-			retval.penetrationDepth = bpD;
-			retval.collision = bAH * b.normals[j];
-		}
-
-	}
-
 	
-		
-	
+	return retval;
+}
+
+CollisionData HullCollisionGroups(const hull A[], unsigned asize, const hull B[], unsigned bsize)
+{
+	CollisionData retval;
+	retval.penetrationDepth = INFINITY;
+	for(int i = 0; i < asize; ++i)
+		for (int j = 0; j < bsize; ++j)
+		{
+			CollisionData temp = HullCollision(A[i], B[j]);
+			if (temp.penetrationDepth < retval.penetrationDepth)
+				retval = temp;
+		}
+
 	return retval;
 }
 

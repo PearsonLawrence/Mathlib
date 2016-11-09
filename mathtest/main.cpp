@@ -221,8 +221,8 @@ int main()
 	assert((tHull.verticies[3] == vec2{ 1,0 }));
 
 
-	assert(fequals(HullCollision(myHull, otherhull).penetrationDepth, 0));
-	assert(fequals(HullCollision(myHull, tHull).penetrationDepth, -1));
+//	assert(fequals(HullCollision(myHull, otherhull).penetrationDepth, 0));
+	assert(fequals(HullCollision(otherhull, tHull).penetrationDepth, -1));
 
 		getchar();
 		return 0;

@@ -139,11 +139,10 @@ hull::hull(const vec2 * a_vertices, unsigned a_size)
 		{
 			A = a_vertices[i] - a_vertices[0];
 		}
-		normal(A);
+		//normal(A);
 
 		vec2 mid;
-
-		mid = perp(A);
+		mid = normal(perp(A));
 
 		normals[i] = mid;
 		verticies[i] = a_vertices[i];

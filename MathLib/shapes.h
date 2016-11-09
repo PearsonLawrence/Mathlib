@@ -31,8 +31,7 @@ ray operator*(const mat3 &t, const ray & r);
 
 struct hull 
 {
-      int size1 = 16;
-
+     
 	vec2 verticies[16];
 	vec2 normals[16];
 	unsigned int size;
