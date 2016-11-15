@@ -164,6 +164,19 @@ vec2 max(const vec2 & A, const vec2 & B)
 		A.y > B.y ? A.y : B.y };
 }
 
+vec2 project(vec2 I, vec2 N)
+{
+
+	return dot(I, normal(N)) * normal(N);
+}
+
+vec2 reflect(vec2 I, vec2 N)
+{
+	
+
+	return I - 2 * project(I, N);
+}
+
 float vec2::operator[](unsigned idx) const
 {
 	return v[idx];

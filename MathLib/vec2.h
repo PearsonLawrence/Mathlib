@@ -53,3 +53,5 @@ vec2 catRomSpline(const vec2 start, const vec2 mid, const vec2 end, float alpha)
 
 vec2 min(const vec2 & A, const vec2 & B);
 vec2 max(const vec2 & A, const vec2 & B);
+vec2 project(vec2 I, vec2 N);
+vec2 reflect(vec2 I, vec2 N);

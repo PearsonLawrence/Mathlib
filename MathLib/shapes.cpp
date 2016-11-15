@@ -36,14 +36,14 @@ AABB operator*(const mat3 & t, const AABB & a)
 	
 	tp[0] = t * vec3{ a.min1().x, a.max1().y, 1 };
 	tp[1] = t * vec3{ a.max1().x, a.max1().y, 1 };
-	tp[2] = t * vec3{ a.min1().x, a.min1().y ,1 };
-	tp[3] = t * vec3{ a.max1().x, a.min1().y,1 };
+	tp[2] = t * vec3{ a.min1().x, a.min1().y, 1 };
+	tp[3] = t * vec3{ a.max1().x, a.min1().y, 1 };
 
 
 	vec2 minv = tp[0].xy,
 		 maxv = tp[0].xy;
 
-	for (int i = 1; i < 4;  i++)
+	for (int i = 0; i < 4;  i++)
 	{
 		if (tp[i].x < minv.x)
 		{
@@ -61,9 +61,6 @@ AABB operator*(const mat3 & t, const AABB & a)
 		{
 			maxv.y = tp[i].y;
 		}
-
-		//minv = { tp[i].x < tp[i].x, tp[i].y < tp[i].y };
-		//maxv = { tp[i].x > tp[i].x, tp[i].y > tp[i].y };
 	}
 
 	retval.pos = (t * vec3{ a.pos.x, a.pos.y, 1 }).xy;
@@ -86,7 +83,7 @@ hull operator*(const mat3 & t, const hull & h)
 	for (int i = 0; i < h.size; i++)
 	{
 		retval.verticies[i] = (t * vec3{ h.verticies[i].x ,h.verticies[i].y,1 }).xy;
-		retval.normals[i] = (t * vec3{ h.normals[i].x ,h.normals[i].y,0 }).xy;
+		retval.normals[i] = normal((t * vec3{ h.normals[i].x ,h.normals[i].y,0 }).xy);
 
 	}
 

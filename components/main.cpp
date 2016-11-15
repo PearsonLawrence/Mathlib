@@ -9,11 +9,13 @@
 #include "planetaryRender.h"
 #include "shipRender.h"
 #include "shapedraw.h"
+#include "collider.h"
+#include "collision.h"
 int main()
 {
 	unsigned s = sfw::loadTextureMap("./res/1.png");
 
-	sfw::initContext(800, 600);
+	sfw::initContext(1600, 900);
 	
 
 
@@ -54,13 +56,6 @@ int main()
 	PlanetaryRender sunrender4(YELLOW, 1);
 	PlanetaryRender sunrender5(YELLOW, 1);
 
-
-
-
-
-
-
-
 	RigidBody playerRigidbody;
 	RigidBody elbowrigidbody;
 	RigidBody wristrigidbody;
@@ -69,9 +64,6 @@ int main()
 	RigidBody wrist2rigidbody;
 	RigidBody shoulder2Rigidbody;
 	RigidBody sunBody;
-
-
-
 
 	PlanetaryMotor sunmotor;
 	sunmotor.m_rotationSpeed = .50;
@@ -114,9 +106,14 @@ int main()
 	
 
 	
-	
+	vec2 hullvrts[] = { {0,.75 },{.25, 0},{-.25, 0 } };
+	Collider playerCollider(hullvrts, 3);
 
-	
+	transform occluderTransform(400, 250, 5, 5, .15, RED);
+
+	occluderTransform.m_scale = vec2{ 8,8 };
+
+	Collider occluderCollider(hullvrts, 3);
 
 	vec2 start = { 100,100 },
 		end = { 200,600 },
@@ -145,18 +142,26 @@ int main()
 	float steps = 100;
 	float ang_vec = 0;
 
+
+	RigidBody occluderRigidbody;
+
 	vec2 cameraPosition = vec2{ 0,0 };
 
 	while (sfw::stepContext())
 	{
 		float deltatime = sfw::getDeltaTime();
-
+		
 
 		playerctrl.update(playerloco);
 		playerloco.integrate(trans, playerRigidbody, deltatime);
 		playerRigidbody.integrate(trans, deltatime);
 
 		float scalenum = 10.0f;
+
+
+
+		//printf("%f: %f, %f\n",results.penetrationDepth,results.collision.x,results.collision.y);
+
 
 		mat3 ScaleC = scale(scalenum, scalenum);
 		vec2 gp = trans.getGlobalPosition();
@@ -169,7 +174,13 @@ int main()
 		mat3 view = inverse(translate(cameraPosition.x, cameraPosition.y));
 		mat3 camera = proj * view;
 
+		//staticCollision(trans, playerRigidbody, playerCollider, occluderTransform
+			//,occluderCollider);
 
+		dynamicCollision(trans, playerRigidbody, playerCollider, occluderTransform
+			, occluderRigidbody, occluderCollider, 1);
+
+		/*
 		sunmotor.update(sunBody);
 		Earthmotor.update(EarthBody);
 		sunmotor2.update(sunBody2);
@@ -187,34 +198,38 @@ int main()
 		sun3.debugDraw(camera);
 		sun4.debugDraw(camera);
 		sun5.debugDraw(camera);
-
+		*/
 		
 		tranz.draw(trans, camera);
 		trans.debugDraw(camera);
 		playerRigidbody.debugDraw(camera, trans);
-
+		occluderTransform.debugDraw(camera);
+		occluderCollider.DebugDraw(camera, occluderTransform);
+		occluderRigidbody.debugDraw(camera, occluderTransform);
 		/*Earth.debugDraw(camera);
 		Mars.debugDraw(camera);
 		saturn.debugDraw(camera);
 		jupiter.debugDraw(camera);
 		venus.debugDraw(camera);
 		moon1.debugDraw(camera);*/
-	 Earthrender.draw(camera, Earth);
-		 marsrender.draw(camera, Mars);
-		 jupiterrender.draw(camera, jupiter);
-		 saturnrender.draw(camera, saturn);
-		 venusrender.draw(camera, venus);
-		 moonrender.draw(camera, moon1);
+	  //   Earthrender.draw(camera, Earth);
+		 //marsrender.draw(camera, Mars);
+		 //jupiterrender.draw(camera, jupiter);
+		 //saturnrender.draw(camera, saturn);
+		 //venusrender.draw(camera, venus);
+		 //moonrender.draw(camera, moon1);
 
-		 sunrender.draw(camera, sun);
-		 sunrender2.draw(camera, sun2);
-		 sunrender3.draw(camera, sun3);
-		 sunrender4.draw(camera, sun4);
-		 sunrender5.draw(camera, sun5);
+		 //sunrender.draw(camera, sun);
+		 //sunrender2.draw(camera, sun2);
+		 //sunrender3.draw(camera, sun3);
+		 //sunrender4.draw(camera, sun4);
+		 //sunrender5.draw(camera, sun5);
 
+		 playerCollider.DebugDraw(camera, trans);
 		vec3 tp = camera * vec3{ cameraPosition.x, cameraPosition.y, 1 };
 		sfw::drawCircle(tp.x, tp.y, 30);
 
+		
 		
 		//// all the updates
 		//skelcontroller.update(playerskell);
