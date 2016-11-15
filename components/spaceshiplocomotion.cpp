@@ -5,12 +5,12 @@ Spaceshiplocomotion::Spaceshiplocomotion()
 {
 	vertthrust = 0;  // forward movement 0-1 value
 	horzthrust = 0.0f; // max forward movement
-	maxspeed = 300.0f;
+	maxspeed = 200.0f;
 	turn = 0.0f;  // turn -1 - 1 value
-	maxturn = 300.0f; // max turn
-	turnSpeed = 2.0f; // rate of change for our turn
+	maxturn = 200.0f; // max turn
+	turnSpeed = .75f; // rate of change for our turn
 	breakpower = 2.0f;
-	speed = 25.0f; // movement speed
+	speed = 8.0f; // movement speed
 }
 
 void Spaceshiplocomotion::doThrust(float value)

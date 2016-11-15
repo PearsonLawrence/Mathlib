@@ -178,7 +178,7 @@ int main()
 			//,occluderCollider);
 
 		dynamicCollision(trans, playerRigidbody, playerCollider, occluderTransform
-			, occluderRigidbody, occluderCollider, 1);
+			, occluderRigidbody, occluderCollider, 0);
 
 		/*
 		sunmotor.update(sunBody);

@@ -13,68 +13,92 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\components">
+      <UniqueIdentifier>{a1a272ae-7c2f-4060-9c5c-cc824037eeb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\compnents">
+      <UniqueIdentifier>{26124dda-02c9-481f-bf8a-4b8848ddccec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="transform.cpp">
+      <Filter>Source Files\compnents</Filter>
+    </ClCompile>
+    <ClCompile Include="spaceshiplocomotion.cpp">
+      <Filter>Source Files\compnents</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceshipController.cpp">
+      <Filter>Source Files\compnents</Filter>
+    </ClCompile>
+    <ClCompile Include="shipRender.cpp">
+      <Filter>Source Files\compnents</Filter>
+    </ClCompile>
+    <ClCompile Include="shapedraw.cpp">
+      <Filter>Source Files\compnents</Filter>
+    </ClCompile>
+    <ClCompile Include="sfwdraw.cpp">
+      <Filter>Source Files\compnents</Filter>
+    </ClCompile>
+    <ClCompile Include="rigidbody.cpp">
+      <Filter>Source Files\compnents</Filter>
+    </ClCompile>
+    <ClCompile Include="planetaryRender.cpp">
+      <Filter>Source Files\compnents</Filter>
+    </ClCompile>
+    <ClCompile Include="planetarymotor.cpp">
+      <Filter>Source Files\compnents</Filter>
+    </ClCompile>
+    <ClCompile Include="collider.cpp">
+      <Filter>Source Files\compnents</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="transform.cpp">
+    <ClCompile Include="playership.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rigidbody.cpp">
+    <ClCompile Include="camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="spaceshiplocomotion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SpaceshipController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="planetarymotor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="planetaryRender.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shipRender.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shapedraw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sfwdraw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="collider.cpp">
+    <ClCompile Include="gamestate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="rigidbody.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\components</Filter>
     </ClInclude>
     <ClInclude Include="spaceshiplocomotion.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\components</Filter>
     </ClInclude>
     <ClInclude Include="SpaceshipController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="planetarymotor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="planetaryRender.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\components</Filter>
     </ClInclude>
     <ClInclude Include="shipRender.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\components</Filter>
     </ClInclude>
     <ClInclude Include="shapedraw.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="rigidbody.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="planetaryRender.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="planetarymotor.h">
+      <Filter>Header Files\components</Filter>
     </ClInclude>
     <ClInclude Include="collider.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="gamestate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="playership.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

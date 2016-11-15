@@ -6,8 +6,8 @@
 
 transform::transform() : m_facing(0), m_position({0,0}), m_scale({28,8})
 {
-	velocity1 = 5;
-	velocity2 = 5;
+	velocity1 = 2;
+	velocity2 = 2;
 
 	UpKey = 'W';
 	DownKey = 'S';

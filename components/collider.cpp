@@ -1,5 +1,8 @@
 #include "collider.h"
 #include "shapedraw.h"
+Collider::Collider()
+{
+}
 Collider::Collider(const vec2 * verts, int size) : Hull(verts,size)
 {
 	float minX = INFINITY;
@@ -61,7 +64,7 @@ CollisionData ColliderCollision(const transform & AT, const Collider & AC, const
 }
 
 CollisionData staticCollision(transform & AT, RigidBody & AR, const Collider & AC,
-	const transform & BT, const Collider & BC)
+	const transform & BT, const Collider & BC, float bounce)
 {
 
 
@@ -75,7 +78,7 @@ CollisionData staticCollision(transform & AT, RigidBody & AR, const Collider & A
 		AT.m_position -= MTV;
 
 		AR.velocity =
-			reflect(AR.velocity, results.collision);
+			reflect(AR.velocity, results.collision) * bounce;
 
 	}
 

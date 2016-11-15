@@ -11,6 +11,7 @@ public:
 	hull Hull;
 	AABB box;
 
+	Collider();
 	Collider(const vec2 *verts, int size);
 	void DebugDraw(const mat3 &T, const transform &trans);
 
@@ -20,7 +21,7 @@ public:
 		                            const transform &BT, const Collider &BC);
 
 	CollisionData staticCollision(transform &AT, RigidBody &AR, const Collider & AC,
-		const transform &BT, const Collider &BC);
+		const transform &BT, const Collider &BC, float bounce);
 
 	CollisionData dynamicCollision(transform &AT, RigidBody &AR, const Collider & AC,
 		transform &BT, RigidBody &BR, const Collider &BC, float bounce);
