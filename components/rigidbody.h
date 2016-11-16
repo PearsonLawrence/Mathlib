@@ -21,4 +21,5 @@ public:
 	float mass, drag, angularDrag;
 	void debugDraw(const mat3 &t, transform &trans);
 	void integrate(transform &trans, float deltatime);
+	void reset();
 };

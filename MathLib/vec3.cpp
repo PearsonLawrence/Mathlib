@@ -83,9 +83,10 @@ float dot(const vec3 & lhs, const vec3 & rhs)
 }
 vec3 crossProduct(const vec3 & lhs, const vec3 & rhs)
 {
-	return  vec3{ (lhs.y*rhs.z) - (lhs.z*rhs.y),
-				  (lhs.z*rhs.x) - (lhs.x*rhs.z),
-				  (lhs.x*rhs.y) - (lhs.y*rhs.x)};
+	return vec3
+	{ lhs.y*rhs.z - lhs.z*rhs.y,
+		lhs.z*rhs.x - lhs.x*rhs.z,
+		lhs.x*rhs.y - lhs.y*rhs.x };
 }
 float angleBetween(const vec3 & lhs, const vec3 & rhs)
 {

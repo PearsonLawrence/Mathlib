@@ -11,10 +11,7 @@ public:
 	transform(float x, float y,  float vely, float velx, float m_size,  unsigned m_COLOR);
 	transform(transform x, transform y, int Up, int down, int left, int right, int sprint, float vely, float velx);
 
-
 	transform *m_parent;
-
-
 
 	vec2 m_position;
 	vec2 m_scale;

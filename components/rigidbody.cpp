@@ -2,16 +2,7 @@
 
 RigidBody::RigidBody()
 {
-	velocity = vec2{ 0,0 };
-	angularVelocity = 0.0f;
-	acceleration = vec2{ 0,0 };
-	angularAcceleration = 0.0f;
-	force = vec2{ 0,0 };
-	impulse = vec2{ 0,0 };
-	mass = 1;
-	drag = .75;
-	torque = 0;
-	angularDrag = 1;
+	reset();
 
 }
 
@@ -57,4 +48,18 @@ void RigidBody::integrate(transform & trans, float deltatime)
 	torque = 0;
 	torque = -angularVelocity * angularDrag;
 
+}
+
+void RigidBody::reset()
+{
+	velocity = vec2{ 0,0 };
+	angularVelocity = 0.0f;
+	acceleration = vec2{ 0,0 };
+	angularAcceleration = 0.0f;
+	force = vec2{ 0,0 };
+	impulse = vec2{ 0,0 };
+	mass = 1;
+	drag = .75;
+	torque = 0;
+	angularDrag = 1;
 }

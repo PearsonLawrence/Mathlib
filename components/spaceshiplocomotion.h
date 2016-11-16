@@ -4,7 +4,7 @@
 class Spaceshiplocomotion
 {
 	
-
+public:
 	float vertthrust;            //forward movement 0 - 1 value
 	float horzthrust;         // max forward movement
 	float breakpower;
@@ -17,7 +17,7 @@ class Spaceshiplocomotion
 	float speed;      
 	float maxspeed;// movement speed
 
-public:
+
 	Spaceshiplocomotion();
 	void doThrust(float value);
 	void doTurn(float value);
