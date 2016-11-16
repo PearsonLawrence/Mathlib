@@ -8,23 +8,18 @@
 #include "SpaceshipController.h"
 #include "spaceshiplocomotion.h"
 
+#include "spriterenderer.h"
+
 class Map
 {
 public:
-	//unsigned s = sfw::loadTextureMap("./components/res/wall.jpg");
-
 	transform trans;
 
 	Collider collider[4];
+	SpriteRenderer renderer;
 	
-	
-	
-	
-
 	Map();
 
 	void update(float deltatime, class Gamestate &gs);
 	void draw(const mat3 &camera);
-	void mapDraw(const mat3 & camera);
-
 };

@@ -106,6 +106,4 @@ void Gamestate::draw()
 	for (int i = 0; i < enemyamount; ++i)
 		if(enemy[i].isAlive == true)
 		enemy[i].draw(cam);
-
-	map.mapDraw(cam);
 }

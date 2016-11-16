@@ -81,6 +81,9 @@
     <ClCompile Include="attackarea.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="spriterenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="transform.h">
@@ -136,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="attackarea.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="spriterenderer.h">
+      <Filter>Header Files\components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -9,6 +9,8 @@
 class Gamestate
 {
 public:
+	unsigned s = sfw::loadTextureMap("./components/res/wall.jpg");
+
 	 const int enemyamount = 20;
 	
 	PlayerShip player;

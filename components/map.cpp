@@ -29,7 +29,11 @@ Map::Map()
 	trans.m_scale = vec2{ 1,1 };
 	trans.m_position = { 0,0 };
 
+	renderer.offset = { 0,250 };
+	renderer.dimensions = { 500,500 };
 
+	// TODO: CLEAN UP AFTER MYSELF
+	renderer.textureHandle = sfw::loadTextureMap("./res/wall.jpg");
 }
 
 void Map::update(float deltatime, Gamestate & gs)
@@ -44,9 +48,5 @@ void Map::draw(const mat3 & camera)
 	collider[2].DebugDraw(camera, trans);
 	collider[3].DebugDraw(camera, trans);
 	trans.debugDraw(camera);
-}
-
-void Map::mapDraw(const mat3 & camera)
-{
-	//sfw::drawTexture(s,100, 900, 800, -100);
+	renderer.draw(camera, trans);
 }
