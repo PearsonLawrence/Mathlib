@@ -8,6 +8,13 @@ void Gamestate::play()
 	player.trans.m_position = vec2{ 800, 450 };
 	player.locomotion.speed = 50.f;
 	player.locomotion.turnSpeed = 2.f;
+
+
+	if (bomb.isactive == true)
+	{
+		bomb.trans.m_position = player.trans.m_position;
+	}
+
 	for (int i = 0; i < 5; ++i)
 	{
 		if (bullet[i].isactive == true)
@@ -29,15 +36,24 @@ void Gamestate::play()
 }
 
 void Gamestate::update(float deltaTime)
-{
+{/*
 	if (player.health <= 0)
 	{
 		sfw::termContext();
-	}
+	}*/
+
 	player.update(deltaTime, *this);
 	camera.update(deltaTime, *this);
+	if (bomb.isactive == true)
+	{
+		bomb.update(deltaTime, *this);
+	}
+
 	for (int i = 0; i < enemyamount; ++i)
+	{
 		enemy[i].update(deltaTime, *this);
+			
+}
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -46,13 +62,17 @@ void Gamestate::update(float deltaTime)
 
 	PlayerMapCollision(map, player);
 
+	
 	for (int i = 0; i < enemyamount; i++)
 	{
-		EnemyMapCollision(map,enemy[i]);
+		EnemyMapCollision(map, enemy[i]);
 		PlayerEnemyCollision(player, enemy[i]);
-	AttackAreaCollision(enemy[i], attackarea);
-    }
-
+		AttackAreaCollision(enemy[i], attackarea);
+		if (bomb.isactive == true)
+		{
+			BombenemyCollision(enemy[i], bomb);
+		}
+	}
 	for (int i = 0; i < enemyamount; i++)
 		for(int j = i + 1; j < enemyamount; j++)
 			if(enemy[i].isAlive == true && enemy[j].isAlive == true)
@@ -92,16 +112,22 @@ void Gamestate::draw()
 {
 	
 	mat3 cam = camera.getCameraMatrix();
-	
+	map.draw(cam);
+
+
 	player.draw(cam);
 	
+	if (bomb.isactive == true)
+	{
+		bomb.draw(cam);
+	}
 
 		for (int i = 0; i < 5; ++i)
 			if (bullet[i].isactive == true)
 			{
 				bullet[i].draw(cam);
 			}
-		map.draw(cam);
+		
 		attackarea.draw(cam);
 	for (int i = 0; i < enemyamount; ++i)
 		if(enemy[i].isAlive == true)

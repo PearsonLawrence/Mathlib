@@ -57,3 +57,18 @@ void AttackAreaCollision(EnemyShip & enemy, AttackArea & attack)
 		
 	}
 }
+
+void BombenemyCollision(EnemyShip & enemy, Bomb & bomb)
+{
+	CollisionData result =
+		dynamicCollision(enemy.trans, enemy.rigidbody, enemy.collider,
+			bomb.trans, bomb.rigidbody, bomb.collider, 0);
+	if (result.penetrationDepth >= 0 )
+	{
+
+		bomb.explode = true;
+		if (bomb.trans.m_scale.x <= 4.99 && bomb.trans.m_scale.y <= 4.99)
+		enemy.health -= 10;
+	}
+
+}

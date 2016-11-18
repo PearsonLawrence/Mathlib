@@ -29,11 +29,24 @@ Map::Map()
 	trans.m_scale = vec2{ 1,1 };
 	trans.m_position = { 0,0 };
 
-	renderer.offset = { 0,250 };
-	renderer.dimensions = { 500,500 };
+	renderer[0].offset = { 800,850 };
+	renderer[0].dimensions = { 1500,100 };
+	renderer[1].offset = { 50,450 };
+	renderer[1].dimensions = { 100,900 };
+	renderer[2].offset = { 1550,450 };
+	renderer[2].dimensions = { 100,900 };
+	renderer[3].offset = { 800,50 };
+	renderer[3].dimensions = { 1500,100 };
+
+	render.offset = { 800,450 };
+	render.dimensions = { 1500,900 };
+
+	render.textureHandle = sfw::loadTextureMap("./res/map1.jpg");
+	
 
 	// TODO: CLEAN UP AFTER MYSELF
-	renderer.textureHandle = sfw::loadTextureMap("./res/wall.jpg");
+	for(int i = 0; i < 4; i++)
+	renderer[i].textureHandle = sfw::loadTextureMap("./res/border.png");
 }
 
 void Map::update(float deltatime, Gamestate & gs)
@@ -42,11 +55,13 @@ void Map::update(float deltatime, Gamestate & gs)
 
 void Map::draw(const mat3 & camera)
 {
+	render.draw(camera, trans);
 
-	collider[0].DebugDraw(camera, trans);
-	collider[1].DebugDraw(camera, trans);
-	collider[2].DebugDraw(camera, trans);
-	collider[3].DebugDraw(camera, trans);
+	//collider[0].DebugDraw(camera, trans);
+	//collider[1].DebugDraw(camera, trans);
+	//collider[2].DebugDraw(camera, trans);
+	//collider[3].DebugDraw(camera, trans);
 	trans.debugDraw(camera);
-	renderer.draw(camera, trans);
+	for(int i = 0; i < 4; i++)
+	renderer[i].draw(camera, trans);
 }

@@ -3,13 +3,13 @@
 #include "Enemyship.h"
 #include "sfwdraw.h"
 #include "spriterenderer.h"
-	// forward declaration
+// forward declaration
 
 
-class Bullet
+class Bomb
 {
 private:
-	
+
 	unsigned int color = 0;
 	float freezeTimer = 2;
 
@@ -21,9 +21,10 @@ public:
 	RigidBody rigidbody;
 	SpriteRenderer renderer;
 	bool isactive = false;
-	float shoottime;
+	bool explode = false;
+	int bombcount;
 
-	Bullet();
+	Bomb();
 	void update(float deltatime, class Gamestate &gs);
 	void draw(const mat3 &camera);
 

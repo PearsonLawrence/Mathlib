@@ -164,8 +164,7 @@ CollisionDataSwept SweptplaneBoxCollision(const plane & p,  const AABB & b,
 
 	float FBL = dot(p.dir, BL),
 		FBR = dot(p.dir, BR),
-		FTL = dot(p.dir, TL),
-		FTR = dot(p.dir, TR);
+		FTL = dot(p.dir, TL),		FTR = dot(p.dir, TR);
 
 	float Amin = fminf(fminf(FBL, FBR), fminf(FTL, FTR));
 	float Amax = fmaxf(fmaxf(FBL, FBR), fmaxf(FTL, FTR));

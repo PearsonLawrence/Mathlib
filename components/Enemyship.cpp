@@ -4,11 +4,18 @@
 #include "gamestate.h"
 EnemyShip::EnemyShip()
 {
-	vec2 hullvrts[] = { { 0,.75 },{ .25, .50 },{ .25, 0 },{-.25,0},{-.25,.50} };
+	vec2 hullvrts[] = { { 1,4 },{ 1,0 },{ -1,0 },
+	{ -1,4 } };
 
-	collider = Collider(hullvrts, 5);
+	collider = Collider(hullvrts, 4);
+	trans.m_scale = vec2{ 3,3 };
 
-	trans.m_scale = vec2{ 8,8 };
+	
+	renderer.offset = { 0,2 };
+	renderer.dimensions = { 4,4 };
+
+	renderer.textureHandle = sfw::loadTextureMap("./res/enemy.png");
+
 	
 }
 
@@ -28,8 +35,9 @@ void EnemyShip::draw(const mat3 & camera)
 	
 	if (isAlive == true)
 	{
-		collider.DebugDraw(camera, trans);
-		trans.debugDraw(camera);
-		rigidbody.debugDraw(camera, trans);
+		//collider.DebugDraw(camera, trans);
+		//trans.debugDraw(camera);
+		//rigidbody.debugDraw(camera, trans);
+		renderer.draw(camera, trans);
 	}
 }

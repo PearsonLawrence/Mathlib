@@ -4,7 +4,7 @@
 #include "rigidbody.h"
 #include "SpaceshipController.h"
 #include "spaceshiplocomotion.h"
-
+#include "spriterenderer.h"
 class Gamestate;
 
 class EnemyShip
@@ -14,6 +14,8 @@ public:
 	Collider collider;
 	RigidBody rigidbody;
 	Spaceshiplocomotion locomotion;
+	SpriteRenderer renderer;
+
 	bool isAlive = true;
 	int health = 6;
 	EnemyShip();

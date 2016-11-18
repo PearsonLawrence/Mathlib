@@ -4,7 +4,7 @@
 #include "rigidbody.h"
 #include "SpaceshipController.h"
 #include "spaceshiplocomotion.h"
-
+#include "spriterenderer.h"
 class Gamestate;
 
 
@@ -17,10 +17,13 @@ public:
 	RigidBody rigidbody;
 	spaceshipcontroller controller;
 	Spaceshiplocomotion locomotion;
+	SpriteRenderer renderer;
 	int health = 100;
 	int damage;
 	float shootdelay = 1;
 	const int maxammo = 5;
+	float time = 3;
+	float counter = 0;
 	
 
 	PlayerShip();

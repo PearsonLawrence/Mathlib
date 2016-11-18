@@ -1,17 +1,22 @@
 #include "playership.h"
 #include "gamestate.h"
-
-
+#include "randomfunctions.h"
 
 PlayerShip::PlayerShip()
 {
-	vec2 hullvrts[] = { { 0,1 },{ .25, .70 },{ .25, 0 },{ -.25,0 },{ -.25,.70 } };
+	vec2 hullvrts[] = { { 1,4 },{ 2, 3 },{ 2, 1 },{ 1,0 },{ -1,0 },
+	{-2,1}, {-2,3}, {-1,4} };
 
-	collider = Collider(hullvrts, 5);
-	trans.m_scale = vec2{ 10,10 };
+	collider = Collider(hullvrts, 8);
+	trans.m_scale = vec2{ 2,2 };
 	
+	renderer.offset = { 0,2 };
+	renderer.dimensions = { 4,4 };
+
+		renderer.textureHandle = sfw::loadTextureMap("./res/mage.png");
 	
 }
+
 
 void PlayerShip::update(float deltatime, Gamestate & gs)
 {
@@ -21,6 +26,7 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 	locomotion.integrate(trans, rigidbody, deltatime);
 	rigidbody.integrate(trans, deltatime);
 	shootdelay -= sfw::getDeltaTime();
+	time -= sfw::getDeltaTime();
 	float vinput = 70;
 	for (int i = 0; i < gs.enemyamount; i++)
 	{
@@ -32,9 +38,91 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 		{
 			gs.enemy[i].isAlive = false;
 		}
+		
+			
+			if (gs.enemy[i].isAlive == false)
+			{
+				gs.enemy[i].isAlive = true;
+				gs.enemy[i].trans.m_position = vec2{ randRange(100,1500),randRange(100,800) };
+			}
+		
 	}
-	if (sfw::getMouseButton(MOUSE_BUTTON_LEFT) && shootdelay <= 0)
+	if (shootdelay <= -1)
 	{
+		renderer.textureHandle = sfw::loadTextureMap("./res/mage.png");
+
+	}
+	if (sfw::getKey('F') && !gs.bomb.isactive && gs.bomb.bombcount > 0 && shootdelay <= 0)
+	{
+		
+		shootdelay = 1;
+		time = 5;
+		counter = 0;
+		gs.bomb.bombcount--;
+		gs.bomb.trans.m_facing = 0;
+		gs.bomb.isactive = true;
+		gs.bomb.rigidbody.reset();
+		gs.bomb.trans.m_facing = trans.m_facing;
+		gs.bomb.trans.m_position = trans.m_position;
+		gs.bomb.rigidbody.addImpulse(trans.getUp() * 60.0f);
+		
+		
+	}
+	if (time <= 5)
+	{
+		gs.bomb.renderer.textureHandle = sfw::loadTextureMap("./res/explosion.png");
+
+	}
+	if (gs.bomb.isactive == true)
+	{
+		if (time <= 3 || gs.bomb.explode == true )
+		{
+			
+			gs.bomb.explode = true;
+			if (gs.bomb.explode == true )
+			{
+				
+				gs.bomb.renderer.textureHandle = sfw::loadTextureMap("./res/bomb.png");
+
+					gs.bomb.trans.m_scale.x++;
+					gs.bomb.trans.m_scale.y++;
+					if (gs.bomb.trans.m_scale.x >= 5 &&
+						gs.bomb.trans.m_scale.y >= 5)
+					{
+						gs.bomb.trans.m_scale.x = 5;
+						gs.bomb.trans.m_scale.y = 5;
+						if (time <= 2.95)
+						{
+							gs.bomb.trans.m_scale.x = 1;
+							gs.bomb.trans.m_scale.y = 1;
+							
+							gs.bomb.isactive = false;
+							gs.bomb.explode = false;
+
+							//gs.bomb.trans.m_scale = vec2{ 1,1 };*/
+						}
+					}
+
+				
+
+				
+
+		
+					//gs.bomb.trans.m_scale = vec2{ 1,1 };*/
+				
+
+
+			}
+		}
+		
+	}
+	
+
+	if (sfw::getKey(' ') && shootdelay <= 0)
+	{
+		renderer.textureHandle = sfw::loadTextureMap("./res/mage1.png");
+
+
 		shootdelay = 0.2;
  		for (int i = 0; i < maxammo; i++)
 		{
@@ -49,15 +137,14 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 				
 				gs.bullet[i].rigidbody.addImpulse(trans.getUp() * 60.0f);
 
-				// totally valid
-				//gs.bullet[i].loco.doThrust(vinput);
-				
+			
 				break;
 			}
 			
 
 			
 		}
+		
 	}
 
 	for (int i = 0; i < 5; i++)
@@ -77,26 +164,28 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 			}
 		}
 	}
-	if (trans.m_position.x <= 0)
-		trans.m_position.x = 0;
-	
-	if (trans.m_position.y <= 0)
-		trans.m_position.y = 0;
-	
-	if (trans.m_position.y >= 900)
-		trans.m_position.y = 900;
 
-	if (trans.m_position.x >= 1600)
-		trans.m_position.x = 1600;
+		if (trans.m_position.x <= 0)
+			trans.m_position.x = 0;
+
+		if (trans.m_position.y <= 0)
+			trans.m_position.y = 0;
+
+		if (trans.m_position.y >= 900)
+			trans.m_position.y = 900;
+
+		if (trans.m_position.x >= 1600)
+			trans.m_position.x = 1600;
+	
 
 }
 
-void PlayerShip::draw(const mat3 &camera)
+
+
+void PlayerShip::draw(const mat3 & camera)
 {
-
-	collider.DebugDraw(camera, trans);
-	trans.debugDraw(camera);
-	rigidbody.debugDraw(camera, trans);
-
+//	collider.DebugDraw(camera, trans);
+//	trans.debugDraw(camera);
+//	rigidbody.debugDraw(camera, trans);
+	renderer.draw(camera, trans);
 }
-

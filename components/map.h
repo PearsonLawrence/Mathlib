@@ -16,7 +16,8 @@ public:
 	transform trans;
 
 	Collider collider[4];
-	SpriteRenderer renderer;
+	SpriteRenderer renderer[4];
+	SpriteRenderer render;
 	
 	Map();
 

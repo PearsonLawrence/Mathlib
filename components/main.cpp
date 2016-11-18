@@ -15,7 +15,6 @@
 int main()
 {
 	//unsigned s = sfw::loadTextureMap("./components/res/wall.jpg");
-
 	//sfw::drawTexture(s, 0, 0, 1600, 900);
 	sfw::initContext(1600, 900);
 	
