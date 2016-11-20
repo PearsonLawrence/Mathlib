@@ -42,8 +42,11 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 			
 			if (gs.enemy[i].isAlive == false)
 			{
-				gs.enemy[i].isAlive = true;
 				gs.enemy[i].trans.m_position = vec2{ randRange(100,1500),randRange(100,800) };
+				gs.enemy[i].health = 6;
+				gs.enemy[i].isAlive = true;
+
+				
 			}
 		
 	}
@@ -55,7 +58,7 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 	if (sfw::getKey('F') && !gs.bomb.isactive && gs.bomb.bombcount > 0 && shootdelay <= 0)
 	{
 		
-		shootdelay = 1;
+		shootdelay = 3;
 		time = 5;
 		counter = 0;
 		gs.bomb.bombcount--;
@@ -65,7 +68,6 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 		gs.bomb.trans.m_facing = trans.m_facing;
 		gs.bomb.trans.m_position = trans.m_position;
 		gs.bomb.rigidbody.addImpulse(trans.getUp() * 60.0f);
-		
 		
 	}
 	if (time <= 5)
@@ -81,7 +83,7 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 			gs.bomb.explode = true;
 			if (gs.bomb.explode == true )
 			{
-				
+
 				gs.bomb.renderer.textureHandle = sfw::loadTextureMap("./res/bomb.png");
 
 					gs.bomb.trans.m_scale.x++;
@@ -102,16 +104,7 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 							//gs.bomb.trans.m_scale = vec2{ 1,1 };*/
 						}
 					}
-
-				
-
-				
-
-		
 					//gs.bomb.trans.m_scale = vec2{ 1,1 };*/
-				
-
-
 			}
 		}
 		
@@ -126,7 +119,6 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 		shootdelay = 0.2;
  		for (int i = 0; i < maxammo; i++)
 		{
-
 			if (!gs.bullet[i].isactive)
 			{
 				gs.bullet[i].trans.m_facing = 0;
@@ -136,17 +128,10 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 				gs.bullet[i].trans.m_position = trans.m_position;
 				
 				gs.bullet[i].rigidbody.addImpulse(trans.getUp() * 60.0f);
-
-			
 				break;
 			}
-			
-
-			
 		}
-		
 	}
-
 	for (int i = 0; i < 5; i++)
 	{
 		if (gs.bullet[i].isactive == true)
@@ -164,16 +149,12 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 			}
 		}
 	}
-
 		if (trans.m_position.x <= 0)
 			trans.m_position.x = 0;
-
 		if (trans.m_position.y <= 0)
 			trans.m_position.y = 0;
-
 		if (trans.m_position.y >= 900)
 			trans.m_position.y = 900;
-
 		if (trans.m_position.x >= 1600)
 			trans.m_position.x = 1600;
 	

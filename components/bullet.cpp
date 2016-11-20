@@ -20,7 +20,7 @@ Bullet::Bullet()
 		rigidbody.angularDrag = 0.0f;
 		rigidbody.mass = 0;
 		renderer.offset = { 0,0 };
-		renderer.dimensions = { 10,10 };
+		renderer.dimensions = { 10,15 };
 
 		renderer.textureHandle = sfw::loadTextureMap("./res/attack2.png");
 

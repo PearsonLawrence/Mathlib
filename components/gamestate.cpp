@@ -8,7 +8,7 @@ void Gamestate::play()
 	player.trans.m_position = vec2{ 800, 450 };
 	player.locomotion.speed = 50.f;
 	player.locomotion.turnSpeed = 2.f;
-
+	fallen.trans.m_position = vec2{ 850, 470 };
 
 	if (bomb.isactive == true)
 	{
@@ -41,7 +41,7 @@ void Gamestate::update(float deltaTime)
 	{
 		sfw::termContext();
 	}*/
-
+	fallen.update(deltaTime, *this);
 	player.update(deltaTime, *this);
 	camera.update(deltaTime, *this);
 	if (bomb.isactive == true)
@@ -62,7 +62,8 @@ void Gamestate::update(float deltaTime)
 
 	PlayerMapCollision(map, player);
 
-	
+	PlayerFallenCollision(player, fallen);
+	FallenAttackAreaCollision(fallen, attackarea);
 	for (int i = 0; i < enemyamount; i++)
 	{
 		EnemyMapCollision(map, enemy[i]);
@@ -94,7 +95,7 @@ void Gamestate::update(float deltaTime)
 	
 	if (sfw::getKey('M'))
 	{
-		camera.scalenum -= 2.0f * deltaTime;
+		camera.scalenum -= 5.f * deltaTime;
 		if (camera.scalenum <= 2.0f)
 		{
 			camera.scalenum = .5;
@@ -116,7 +117,7 @@ void Gamestate::draw()
 
 
 	player.draw(cam);
-	
+	fallen.draw(cam);
 	if (bomb.isactive == true)
 	{
 		bomb.draw(cam);

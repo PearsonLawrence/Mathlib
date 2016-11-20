@@ -32,14 +32,14 @@ if (result.penetrationDepth >= 0)
 
 void PlayerMapCollision(Map & map, PlayerShip & player)
 {
-	for(int i = 0; i < 4; i++)
+	for(int i = 0; i < 6; i++)
 		staticCollision(player.trans, player.rigidbody, player.collider
 			, map.trans, map.collider[i],0);
 }
 
 void EnemyMapCollision(Map & map, EnemyShip & player)
 {
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 6; i++)
 		staticCollision(player.trans, player.rigidbody, player.collider
 			, map.trans, map.collider[i], 0);
 }
@@ -68,7 +68,46 @@ void BombenemyCollision(EnemyShip & enemy, Bomb & bomb)
 
 		bomb.explode = true;
 		if (bomb.trans.m_scale.x <= 4.99 && bomb.trans.m_scale.y <= 4.99)
-		enemy.health -= 10;
+		enemy.health -= 6;
 	}
 
+}
+
+void PlayerFallenCollision(PlayerShip & player, Fallen & fallen)
+{
+	CollisionData result1 =
+		dynamicCollision(player.trans, player.rigidbody, player.collider, fallen.trans,
+			fallen.rigidbody, fallen.collider, 0);
+
+	CollisionData result2 =
+		dynamicCollision(player.trans, player.rigidbody, player.collider, fallen.sheildT,
+			fallen.sheildR, fallen.sheildC, 0);
+
+
+	CollisionData results[4];
+	for (int i = 0; i < 4; i++)
+	{
+		results[i] = staticCollision(player.trans, player.rigidbody, player.collider, fallen.sheildt[i],
+	   fallen.sheildc[i],1);
+	}
+
+	if (result1.penetrationDepth >= 0 || result2.penetrationDepth >= 0
+		  )
+	{
+		player.health -= 1;
+	}
+}
+
+void FallenAttackAreaCollision(Fallen & fallen, AttackArea & attack)
+{
+	CollisionData result =
+		ColliderCollision(fallen.trans, fallen.collider, attack.trans, attack.collider);
+	if (result.penetrationDepth >= 0)
+	{
+		vec2 dir = normal(attack.trans.getGlobalPosition() -
+			fallen.trans.getGlobalPosition());
+		fallen.rigidbody.addForce(dir * 20);
+
+
+	}
 }

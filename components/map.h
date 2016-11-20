@@ -15,7 +15,8 @@ class Map
 public:
 	transform trans;
 
-	Collider collider[4];
+	Collider collider[6];
+	
 	SpriteRenderer renderer[4];
 	SpriteRenderer render;
 	

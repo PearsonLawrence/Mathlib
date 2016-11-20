@@ -124,6 +124,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="Enemyship.cpp" />
+    <ClCompile Include="fallenangel.cpp" />
     <ClCompile Include="gamestate.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="collider.h" />
     <ClInclude Include="Enemyship.h" />
+    <ClInclude Include="fallenangel.h" />
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="ObjectCollision.h" />

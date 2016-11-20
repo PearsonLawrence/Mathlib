@@ -18,7 +18,7 @@ void Camera::update(float deltatime, Gamestate & gs)
 {
 	
 	Transform.m_position = lerp(Transform.m_position,
-		gs.player.trans.getGlobalPosition(), 0.05f);
+		gs.player.trans.getGlobalPosition(), 0.3f);
 
 	ScaleC = scale(scalenum, scalenum);
 	projection = translate(800, 450) * ScaleC;
