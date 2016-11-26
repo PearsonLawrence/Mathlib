@@ -1,5 +1,5 @@
 #include "fallenangel.h"
-
+#include <iostream>
 Fallen::Fallen()
 {
 	vec2 hullvrts[] = { { 1,2 },{ 1,-2 },{ -1,-2 },
@@ -65,10 +65,25 @@ Fallen::Fallen()
 	circle.textureHandle = sfw::loadTextureMap("./res/blackflame.gif");
 	renderer.textureHandle = sfw::loadTextureMap("./res/fallen1.png");
 
+	vec2 hullvrts7[] = { { .5, 4 },{ .5,0 },{ 1,-1 },{ 0,-.5 },
+
+	{ -1,-1 },{ -.5,0 },{ -.5,4 } };
+
+
+	attackC = Collider(hullvrts7, 7);
+
+	attackT.m_scale = vec2{ 1,1 };
+	attackT.playervelocity = { 10,10 };
+	attackR.drag = 0.0f;
+	attackR.angularDrag = 0.0f;
+	attackR.mass = 0;
+
 }
 
 void Fallen::update(float deltatime, Gamestate & gs)
 {
+	time -= sfw::getDeltaTime();
+
 	if (isAlive == true)
 	{
 		sheildT.m_position = trans.m_position;
@@ -84,6 +99,19 @@ void Fallen::update(float deltatime, Gamestate & gs)
 		rigidbody.integrate(trans, deltatime);
 	}
 
+	if (time <= 0)
+	{
+		attacking = true;
+	}
+
+	if (attacking == true)
+	{
+		printf("attack");
+		attackR.integrate(attackT, deltatime);
+		attackL.integrate(attackT, attackR, deltatime);
+
+	}
+
 }
 
 void Fallen::draw(const mat3 & camera)
@@ -91,22 +119,26 @@ void Fallen::draw(const mat3 & camera)
 	if (isAlive == true)
 	{
 		
-		sheildC.DebugDraw(camera, sheildT);
-		collider.DebugDraw(camera, trans);
-		trans.debugDraw(camera);
-		rigidbody.debugDraw(camera, trans);
+		//sheildC.DebugDraw(camera, sheildT);
+	//	collider.DebugDraw(camera, trans);
+		//trans.debugDraw(camera);
+		//rigidbody.debugDraw(camera, trans);
 		circle.draw(camera, sheildT);
 	renderer.draw(camera, trans);
 		
-			sheildc[0].DebugDraw(camera, sheildt[0]);
-			sheildc[1].DebugDraw(camera, sheildt[1]);
-			sheildc[2].DebugDraw(camera, sheildt[2]);
-			sheildc[3].DebugDraw(camera, sheildt[3]);
+		//	sheildc[0].DebugDraw(camera, sheildt[0]);
+		//	sheildc[1].DebugDraw(camera, sheildt[1]);
+		//	sheildc[2].DebugDraw(camera, sheildt[2]);
+		//	sheildc[3].DebugDraw(camera, sheildt[3]);
 
 		
 		sheild[0].draw(camera, sheildt[0]);
 		sheild[1].draw(camera, sheildt[1]);
 		sheild[2].draw(camera, sheildt[2]);
 		sheild[3].draw(camera, sheildt[3]);
+		if (attacking == true)
+		{
+			attackC.DebugDraw(camera, attackT);
+		}
 	}
 }

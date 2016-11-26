@@ -8,7 +8,7 @@ void PlayerEnemyCollision(PlayerShip & player, EnemyShip & enemy)
 	if (result.penetrationDepth >= 0)
 	{
 		player.health -= .5;
-		printf("%d", player.health);
+		//printf("%d", player.health);
 		//player.trans.m_scale *= 1;
 	}
 }
@@ -102,11 +102,71 @@ void FallenAttackAreaCollision(Fallen & fallen, AttackArea & attack)
 {
 	CollisionData result =
 		ColliderCollision(fallen.trans, fallen.collider, attack.trans, attack.collider);
-	if (result.penetrationDepth >= 0)
+	if (result.penetrationDepth >= 0 && fallen.isAlive == true)
 	{
 		vec2 dir = normal(attack.trans.getGlobalPosition() -
 			fallen.trans.getGlobalPosition());
-		fallen.rigidbody.addForce(dir * 20);
+		fallen.rigidbody.addForce(dir * 17);
+
+
+	}
+}
+
+void bulletfallencollision(Fallen & fallen, Bullet & bullet)
+{
+	CollisionData result =
+		ColliderCollision(fallen.trans,  fallen.collider,
+			bullet.trans, fallen.collider);
+	if (result.penetrationDepth >= 0)
+	{
+		bullet.isactive = false;
+		fallen.health -= 2;
+	}
+}
+
+void bulletsmokecollision(Fallen & fallen, Bullet & bullet)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		CollisionData result =
+			staticCollision(bullet.trans, bullet.rigidbody, bullet.collider
+				, fallen.sheildt[i], fallen.sheildc[i], 1);
+	}
+}
+
+void BombFallenCollision(Fallen & fallen, Bomb & bomb)
+{
+	CollisionData result =
+		ColliderCollision(fallen.trans, fallen.collider,
+			bomb.trans, bomb.collider);
+	if (result.penetrationDepth >= 0)
+	{
+
+		bomb.explode = true;
+		if (bomb.trans.m_scale.x <= 4.99 && bomb.trans.m_scale.y <= 4.99)
+			fallen.health -= 6;
+	}
+}
+
+void bombsmokecollision(Fallen & fallen, Bomb & bomb)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		CollisionData result =
+			staticCollision(bomb.trans, bomb.rigidbody, bomb.collider
+				, fallen.sheildt[i], fallen.sheildc[i], 1);
+	}
+}
+
+void FattackingAttackAreaCollision(Fallen & fallen, AttackArea & attack)
+{
+	CollisionData result =
+		ColliderCollision(fallen.attackT, fallen.attackC, attack.trans, attack.collider);
+	if (result.penetrationDepth >= 0 && fallen.isAlive == true && fallen.attacking == true)
+	{
+		vec2 dir = normal(attack.trans.getGlobalPosition() -
+			fallen.attackT.getGlobalPosition());
+		fallen.attackR.addForce(dir * 17);
 
 
 	}

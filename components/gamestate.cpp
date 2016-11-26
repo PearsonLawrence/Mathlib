@@ -8,8 +8,11 @@ void Gamestate::play()
 	player.trans.m_position = vec2{ 800, 450 };
 	player.locomotion.speed = 50.f;
 	player.locomotion.turnSpeed = 2.f;
-	fallen.trans.m_position = vec2{ 850, 470 };
-
+	
+	if (fallen.isAlive == true)
+	{
+		fallen.trans.m_position = vec2{ 850, 470 };
+	}
 	if (bomb.isactive == true)
 	{
 		bomb.trans.m_position = player.trans.m_position;
@@ -41,7 +44,25 @@ void Gamestate::update(float deltaTime)
 	{
 		sfw::termContext();
 	}*/
-	fallen.update(deltaTime, *this);
+	if (player.kills >= 0)
+	{
+		//printf("%d", player.kills);
+		fallen.isAlive = true;
+		player.kills = 0;
+		fallen.trans.m_position = vec2{ 850, 470 };
+
+	}
+	if (fallen.isAlive == true)
+	{
+		fallen.update(deltaTime, *this);
+		PlayerFallenCollision(player, fallen);
+		FallenAttackAreaCollision(fallen, attackarea);
+		if (fallen.attacking == true)
+		{
+			FattackingAttackAreaCollision(fallen, attackarea);
+		}
+
+	}
 	player.update(deltaTime, *this);
 	camera.update(deltaTime, *this);
 	if (bomb.isactive == true)
@@ -52,8 +73,8 @@ void Gamestate::update(float deltaTime)
 	for (int i = 0; i < enemyamount; ++i)
 	{
 		enemy[i].update(deltaTime, *this);
-			
-}
+
+	}
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -61,9 +82,12 @@ void Gamestate::update(float deltaTime)
 	}
 
 	PlayerMapCollision(map, player);
-
-	PlayerFallenCollision(player, fallen);
-	FallenAttackAreaCollision(fallen, attackarea);
+	if (bomb.isactive == true)
+	{
+		BombFallenCollision(fallen, bomb);
+		bombsmokecollision(fallen, bomb);
+	}
+	
 	for (int i = 0; i < enemyamount; i++)
 	{
 		EnemyMapCollision(map, enemy[i]);
@@ -84,6 +108,8 @@ void Gamestate::update(float deltaTime)
 	{
 		if (bullet[i].isactive == true )
 		{
+			bulletfallencollision(fallen, bullet[i]);
+			bulletsmokecollision(fallen, bullet[i]);
 			for (int j = 0; j < enemyamount; j++)
 				if (enemy[j].isAlive == true)
 				{
@@ -117,7 +143,11 @@ void Gamestate::draw()
 
 
 	player.draw(cam);
-	fallen.draw(cam);
+	if (fallen.isAlive == true)
+	{
+		fallen.draw(cam);
+	}
+
 	if (bomb.isactive == true)
 	{
 		bomb.draw(cam);

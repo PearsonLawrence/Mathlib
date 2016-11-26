@@ -17,3 +17,8 @@ void AttackAreaCollision(EnemyShip & enemy, AttackArea & attack);
 void BombenemyCollision(EnemyShip & enemy, Bomb & bomb);
 void PlayerFallenCollision(PlayerShip & player, Fallen & fallen);
 void FallenAttackAreaCollision(Fallen & fallen, AttackArea & attack);
+void bulletfallencollision(Fallen & fallen, Bullet & bullet);
+void bulletsmokecollision(Fallen & fallen, Bullet & bullet);
+void BombFallenCollision(Fallen & fallen, Bomb & bomb);
+void bombsmokecollision(Fallen & fallen, Bomb & bomb);
+void FattackingAttackAreaCollision(Fallen & fallen, AttackArea & attack);

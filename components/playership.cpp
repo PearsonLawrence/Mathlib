@@ -14,7 +14,7 @@ PlayerShip::PlayerShip()
 	renderer.dimensions = { 4,4 };
 
 		renderer.textureHandle = sfw::loadTextureMap("./res/mage.png");
-	
+		kills = 0;
 }
 
 
@@ -28,6 +28,8 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 	shootdelay -= sfw::getDeltaTime();
 	time -= sfw::getDeltaTime();
 	float vinput = 70;
+	
+		
 	for (int i = 0; i < gs.enemyamount; i++)
 	{
 		if (gs.enemy[i].health > 0)
@@ -37,6 +39,7 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 		if (gs.enemy[i].health <= 0)
 		{
 			gs.enemy[i].isAlive = false;
+			kills++;
 		}
 		
 			
@@ -50,6 +53,7 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 			}
 		
 	}
+
 	if (shootdelay <= -1)
 	{
 		renderer.textureHandle = sfw::loadTextureMap("./res/mage.png");
