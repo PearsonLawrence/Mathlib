@@ -9,10 +9,7 @@ void Gamestate::play()
 	player.locomotion.speed = 50.f;
 	player.locomotion.turnSpeed = 2.f;
 	
-	if (fallen.isAlive == true)
-	{
-		fallen.trans.m_position = vec2{ 850, 470 };
-	}
+	
 	if (bomb.isactive == true)
 	{
 		bomb.trans.m_position = player.trans.m_position;
@@ -44,7 +41,7 @@ void Gamestate::update(float deltaTime)
 	{
 		sfw::termContext();
 	}*/
-	if (player.kills >= 0)
+	if (player.kills >= 15 && !fallen.isAlive)
 	{
 		//printf("%d", player.kills);
 		fallen.isAlive = true;
@@ -59,12 +56,15 @@ void Gamestate::update(float deltaTime)
 		FallenAttackAreaCollision(fallen, attackarea);
 		if (fallen.attacking == true)
 		{
+
 			FattackingAttackAreaCollision(fallen, attackarea);
+			FallenattackPlayerCollision(fallen, player);
 		}
 
 	}
 	player.update(deltaTime, *this);
 	camera.update(deltaTime, *this);
+	ultimate.update(deltaTime, *this);
 	if (bomb.isactive == true)
 	{
 		bomb.update(deltaTime, *this);
@@ -124,7 +124,7 @@ void Gamestate::update(float deltaTime)
 		camera.scalenum -= 5.f * deltaTime;
 		if (camera.scalenum <= 2.0f)
 		{
-			camera.scalenum = .5;
+			camera.scalenum = 1.25;
 		}
 	}		
 	else
@@ -141,12 +141,9 @@ void Gamestate::draw()
 	mat3 cam = camera.getCameraMatrix();
 	map.draw(cam);
 
-
+	ultimate.draw(cam);
 	player.draw(cam);
-	if (fallen.isAlive == true)
-	{
-		fallen.draw(cam);
-	}
+
 
 	if (bomb.isactive == true)
 	{
@@ -160,7 +157,15 @@ void Gamestate::draw()
 			}
 		
 		attackarea.draw(cam);
+
 	for (int i = 0; i < enemyamount; ++i)
 		if(enemy[i].isAlive == true)
-		enemy[i].draw(cam);
+			enemy[i].draw(cam);
+
+
+	if (fallen.isAlive == true)
+	{
+		fallen.draw(cam);
+		
+	}
 }

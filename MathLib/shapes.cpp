@@ -2,6 +2,8 @@
 #include "vec2.h"
 #include "mat3.h"
 #include "flops.h"
+
+#include <iostream>
 circle operator*(const mat3 & t, const circle & c)
 {
 
@@ -93,7 +95,7 @@ hull operator*(const mat3 & t, const hull & h)
 
 bool operator==(const hull & a, const hull & b)
 {
-
+	// this doesnt
 	return a.verticies == b.verticies;
 }
 
@@ -126,8 +128,13 @@ vec2 AABB::max1() const
 
 hull::hull(const vec2 * a_vertices, unsigned a_size)
 {
+	if (a_size > MAX_HULL_SIZE)
+	{
+		std::cerr << "[WARN] Hull size exceeds MAX_HULL_SIZE! Truncating...\n";
+	}
+
 	size = a_size;
-	for (int i = 0; i < a_size; i++)
+	for (int i = 0; i < a_size && i < MAX_HULL_SIZE; i++)
 	{
 		a_vertices[a_size];
 		

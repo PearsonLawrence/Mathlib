@@ -90,6 +90,9 @@
     <ClCompile Include="fallenangel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ultimate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="transform.h">
@@ -153,6 +156,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="fallenangel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ultimate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

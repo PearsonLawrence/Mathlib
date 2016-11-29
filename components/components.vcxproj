@@ -141,6 +141,7 @@
     <ClCompile Include="spaceshiplocomotion.cpp" />
     <ClCompile Include="spriterenderer.cpp" />
     <ClCompile Include="transform.cpp" />
+    <ClCompile Include="Ultimate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="attackarea.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="spaceshiplocomotion.h" />
     <ClInclude Include="spriterenderer.h" />
     <ClInclude Include="transform.h" />
+    <ClInclude Include="Ultimate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

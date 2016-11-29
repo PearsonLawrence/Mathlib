@@ -12,7 +12,8 @@ PlayerShip::PlayerShip()
 	
 	renderer.offset = { 0,2 };
 	renderer.dimensions = { 4,4 };
-
+	rigidbody.drag = 2;
+	locomotion.speed = 50;
 		renderer.textureHandle = sfw::loadTextureMap("./res/mage.png");
 		kills = 0;
 }
@@ -141,18 +142,22 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 		if (gs.bullet[i].isactive == true)
 		{
 			if ((gs.bullet[i].trans.m_position.x)
-				>= trans.m_position.x + 40 ||
+				>= trans.m_position.x + 60 ||
 				(gs.bullet[i].trans.m_position.x)
-				<= trans.m_position.x - 40 ||
+				<= trans.m_position.x - 60 ||
 				(gs.bullet[i].trans.m_position.y)
-				>= trans.m_position.y + 40 ||
+				>= trans.m_position.y + 60 ||
 				(gs.bullet[i].trans.m_position.y)
-				<= trans.m_position.y - 40)
+				<= trans.m_position.y - 60)
 			{
 				gs.bullet[i].isactive = false;
 			}
 		}
 	}
+
+	
+	
+
 		if (trans.m_position.x <= 0)
 			trans.m_position.x = 0;
 		if (trans.m_position.y <= 0)
@@ -169,6 +174,7 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 
 void PlayerShip::draw(const mat3 & camera)
 {
+	
 //	collider.DebugDraw(camera, trans);
 //	trans.debugDraw(camera);
 //	rigidbody.debugDraw(camera, trans);

@@ -181,10 +181,11 @@ CollisionData HullCollision(const hull & a, const hull & b)
 {
 	
 	int size = 0;
-	vec2 axes[32];
+	vec2 axes[32 * 2];
 
 	for (int j = 0; j < a.size; ++j) axes[size++] = a.normals[j];
 	for (int j = 0; j < b.size; ++j) axes[size++] = b.normals[j];
+
 	CollisionData retval;
 	retval.penetrationDepth = INFINITY;
 

@@ -21,7 +21,7 @@ public:
 	bool isAlive = false;
 	bool attacking = false;
 	int health = 40;
-	float time = 7;
+	float time = 1;
 	Fallen();
 	void update(float deltatime, class Gamestate &gs);
 	void draw(const mat3 &camera);

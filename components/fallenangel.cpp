@@ -30,59 +30,63 @@ Fallen::Fallen()
 
 	collider = Collider(hullvrts, 4);
 	trans.m_scale = vec2{ 12,10 };
-	sheildT.m_scale = vec2{ 7,7 };
+	sheildT.m_scale = vec2{ 5,5 };
+	trans.m_position = vec2{ 850, 470 };
 	
-	
+
 	sheildt[0].m_parent = &sheildT;
 	sheildt[1].m_parent = &sheildT;
 	sheildt[2].m_parent = &sheildT;
 	sheildt[3].m_parent = &sheildT;
 
 	renderer.offset = { 0,0 };
-	renderer.dimensions = { 5,5 };
+	renderer.dimensions = { 3,3 };
 	motor.m_rotationSpeed = 2;
 
 	
 		sheild[0].offset = { .35f,.45f };
-		sheild[0].dimensions = { .2f,.45f };
-		sheild[0].textureHandle = sfw::loadTextureMap("./res/smoke.png");
+		sheild[0].dimensions = { .2f,.55f };
+		sheild[0].textureHandle = sfw::loadTextureMap("./res/orbsmoke.png");
 	
 		sheild[1].offset = { -.35f,.45f };
-		sheild[1].dimensions = { .2f,.45f };
-		sheild[1].textureHandle = sfw::loadTextureMap("./res/smoke.png");
+		sheild[1].dimensions = { .2f,.55f };
+		sheild[1].textureHandle = sfw::loadTextureMap("./res/orbsmoke.png");
 
 		sheild[2].offset = { .35f,-.45f };
-		sheild[2].dimensions = { .2f,.45f };
-		sheild[2].textureHandle = sfw::loadTextureMap("./res/smoke.png");
+		sheild[2].dimensions = { .2f,.55f };
+		sheild[2].textureHandle = sfw::loadTextureMap("./res/orbsmoke.png");
 
 		sheild[3].offset = { -.35f,-.45f };
-		sheild[3].dimensions = { .2f,.45f };
-		sheild[3].textureHandle = sfw::loadTextureMap("./res/smoke.png");
+		sheild[3].dimensions = { .2f,.55f };
+		sheild[3].textureHandle = sfw::loadTextureMap("./res/orbsmoke.png");
 
 	
 	circle.offset = { 0,0 };
-	circle.dimensions = { 8,8 };
-	circle.textureHandle = sfw::loadTextureMap("./res/blackflame.gif");
-	renderer.textureHandle = sfw::loadTextureMap("./res/fallen1.png");
+	circle.dimensions = { 10,10 };
+	circle.textureHandle = sfw::loadTextureMap("./res/runes.png");
+	renderer.textureHandle = sfw::loadTextureMap("./res/fallen.png");
+	
+	attackRend.offset = { 0,0 };
+	attackRend.dimensions = { 10,10 };
+	attackRend.textureHandle = sfw::loadTextureMap("./res/attacko.png");
+	vec2 hullvrts7[] = { { 2,4 },{ 4, 2 },{ 4, -2 },{ 2,-4 },{ -2,-4 },{ -4,-2 },{ -4,2 }
+	,{ -2,4 } };
 
-	vec2 hullvrts7[] = { { .5, 4 },{ .5,0 },{ 1,-1 },{ 0,-.5 },
 
-	{ -1,-1 },{ -.5,0 },{ -.5,4 } };
-
-
-	attackC = Collider(hullvrts7, 7);
-
-	attackT.m_scale = vec2{ 1,1 };
-	attackT.playervelocity = { 10,10 };
+	attackC = Collider(hullvrts7, 8);
+	attackT.m_position = trans.m_position;
+	attackT.m_scale = vec2{ 2,2 };
+	attackT.playervelocity = { 1,1 };
 	attackR.drag = 0.0f;
 	attackR.angularDrag = 0.0f;
-	attackR.mass = 0;
+	attackR.mass = 1;
 
 }
 
 void Fallen::update(float deltatime, Gamestate & gs)
 {
-	time -= sfw::getDeltaTime();
+	time -= deltatime;
+
 
 	if (isAlive == true)
 	{
@@ -97,21 +101,36 @@ void Fallen::update(float deltatime, Gamestate & gs)
 		sheildR.integrate(sheildT, deltatime);
 		locomotion.integrate(trans, rigidbody, deltatime);
 		rigidbody.integrate(trans, deltatime);
+	
+
+		time -= deltatime;
+		
+		
+		if (attacking == true)
+		{
+			//printf("attacking");
+			motor.update(attackR);
+			attackR.integrate(attackT, deltatime);
+			//attackL.integrate(attackT, attackR, deltatime);
+		}
+		if (time <= 0 && attacking == false) // start attacking
+		{
+
+			attackT.m_position = trans.m_position;
+			attackR.velocity = vec2{ 0,0 };
+			attackR.acceleration = vec2{ 0,0 };
+			attackR.force = vec2{ 0,0 };
+			attacking = true;
+			time = 10;
+		}
+		if (time <= 0 && attacking == true)
+		{
+			attacking = false;
+			time = 5;
+		}
+
+
 	}
-
-	if (time <= 0)
-	{
-		attacking = true;
-	}
-
-	if (attacking == true)
-	{
-		printf("attack");
-		attackR.integrate(attackT, deltatime);
-		attackL.integrate(attackT, attackR, deltatime);
-
-	}
-
 }
 
 void Fallen::draw(const mat3 & camera)
@@ -124,7 +143,7 @@ void Fallen::draw(const mat3 & camera)
 		//trans.debugDraw(camera);
 		//rigidbody.debugDraw(camera, trans);
 		circle.draw(camera, sheildT);
-	renderer.draw(camera, trans);
+		renderer.draw(camera, trans);
 		
 		//	sheildc[0].DebugDraw(camera, sheildt[0]);
 		//	sheildc[1].DebugDraw(camera, sheildt[1]);
@@ -136,9 +155,13 @@ void Fallen::draw(const mat3 & camera)
 		sheild[1].draw(camera, sheildt[1]);
 		sheild[2].draw(camera, sheildt[2]);
 		sheild[3].draw(camera, sheildt[3]);
+		
 		if (attacking == true)
 		{
-			attackC.DebugDraw(camera, attackT);
+		//	printf("%f, %f\n", attackT.m_position.x, attackT.m_position.y);
+			attackRend.draw(camera, attackT);
+			//attackC.DebugDraw(camera, attackT);
+			//attackT.debugDraw(camera);
 		}
 	}
 }

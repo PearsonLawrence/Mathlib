@@ -25,18 +25,24 @@ Map::Map()
 
 	collider[3] = Collider(hullvrts4, 4);
 
-	vec2 hullvrts5[] = { {100,440}, {142,440}, {158, 486}, {173, 490}, {210, 475},
-	{245, 468}, {245, 415}, {255, 400}, {370, 400},{400,455}, {430,455},
-	{430, 400}, {445, 382}, {580, 382}, {610,425},
-	{200,540}
-    };
-	vec2 hullvrts6[] = { {610,425}, {610,475}, {650,477}, {665, 525},
+	/*vec2 hullvrts5[] = { {100,440}, {142,440}, {158, 486}, 
+	{173, 490}, {210, 475},{245, 468}, 
+	{245, 415}, {255, 400}, {370, 400},
+	{400,455}, {430,455},{430, 400}, 
+	{445, 382}, {580, 382}, {610,425},
+	{610,475},{ 650,477 },
+	{ 665, 525 },{ 665,575 },{ 625,600 },
+	{ 525, 600 },{ 435, 550 },{ 365,545 },
+	{ 249,620 },{ 170,620 },{ 120, 650 },
+	{ 100,650 },{ 100,450 },{ 250,550 }
+    };*/
+	/*vec2 hullvrts6[] = { {610,425}, {610,475}, {650,477}, {665, 525},
 	{665,575}, {625,600}, {525, 600}, {435, 550}, {365,545}, {249,620},
 	{170,620}, {120, 650}, {100,650},{ 100,450 }, { 250,550 }
-	};
+	};*/
 
-	collider[4] = Collider(hullvrts5, 16);
-	collider[5] = Collider(hullvrts6, 15);
+	/*collider[4] = Collider(hullvrts5, 29);*/
+	/*collider[5] = Collider(hullvrts6, 15);*/
 	trans.m_scale = vec2{ 1,1 };
 	trans.m_position = { 0,0 };
 
@@ -52,7 +58,7 @@ Map::Map()
 	render.offset = { 800,450 };
 	render.dimensions = { 1500,900 };
 
-	render.textureHandle = sfw::loadTextureMap("./res/map1.jpg");
+	render.textureHandle = sfw::loadTextureMap("./res/map5.png");
 	
 
 	// TODO: CLEAN UP AFTER MYSELF
@@ -68,8 +74,8 @@ void Map::draw(const mat3 & camera)
 {
 	render.draw(camera, trans);
 
-	collider[5].DebugDraw(camera, trans);
-	collider[4].DebugDraw(camera, trans);
+	
+	//collider[4].DebugDraw(camera, trans);
 	//collider[0].DebugDraw(camera, trans);
 	//collider[1].DebugDraw(camera, trans);
 	//collider[2].DebugDraw(camera, trans);

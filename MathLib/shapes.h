@@ -31,9 +31,10 @@ ray operator*(const mat3 &t, const ray & r);
 
 struct hull 
 {
-     
-	vec2 verticies[16];
-	vec2 normals[16];
+	const static int MAX_HULL_SIZE = 32;
+
+	vec2 verticies[MAX_HULL_SIZE];
+	vec2 normals[MAX_HULL_SIZE];
 	unsigned int size;
 
 	hull(const vec2 * a_vertices, unsigned a_size);

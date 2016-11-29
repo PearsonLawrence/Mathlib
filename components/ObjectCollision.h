@@ -8,6 +8,7 @@
 #include "attackarea.h"
 #include "bomb.h"
 #include "fallenangel.h"
+#include "Ultimate.h"
 void PlayerEnemyCollision(PlayerShip & player, EnemyShip & enemy);
 void Enemycollision(EnemyShip & enemy1, EnemyShip & enemy2);
 void bulletenemycollision(EnemyShip & enemy, Bullet & bullet);
@@ -22,3 +23,5 @@ void bulletsmokecollision(Fallen & fallen, Bullet & bullet);
 void BombFallenCollision(Fallen & fallen, Bomb & bomb);
 void bombsmokecollision(Fallen & fallen, Bomb & bomb);
 void FattackingAttackAreaCollision(Fallen & fallen, AttackArea & attack);
+void FallenattackPlayerCollision(Fallen & fallen, PlayerShip & player);
+void EnemyorFallenUltimateCollision(Fallen & fallen, EnemyShip & enemy, Ultimate ult);

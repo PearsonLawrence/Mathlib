@@ -106,7 +106,8 @@ void FallenAttackAreaCollision(Fallen & fallen, AttackArea & attack)
 	{
 		vec2 dir = normal(attack.trans.getGlobalPosition() -
 			fallen.trans.getGlobalPosition());
-		fallen.rigidbody.addForce(dir * 17);
+	
+		    fallen.rigidbody.addForce(dir * 17);
 
 
 	}
@@ -137,8 +138,8 @@ void bulletsmokecollision(Fallen & fallen, Bullet & bullet)
 void BombFallenCollision(Fallen & fallen, Bomb & bomb)
 {
 	CollisionData result =
-		ColliderCollision(fallen.trans, fallen.collider,
-			bomb.trans, bomb.collider);
+		staticCollision(fallen.trans, fallen.rigidbody, fallen.collider,
+			bomb.trans, bomb.collider, 0);
 	if (result.penetrationDepth >= 0)
 	{
 
@@ -164,10 +165,36 @@ void FattackingAttackAreaCollision(Fallen & fallen, AttackArea & attack)
 		ColliderCollision(fallen.attackT, fallen.attackC, attack.trans, attack.collider);
 	if (result.penetrationDepth >= 0 && fallen.isAlive == true && fallen.attacking == true)
 	{
-		vec2 dir = normal(attack.trans.getGlobalPosition() -
-			fallen.attackT.getGlobalPosition());
-		fallen.attackR.addForce(dir * 17);
+		vec2 dir = normal(attack.trans.m_position - fallen.attackT.m_position);
+		fallen.attackR.addForce(dir * 21);
 
-
+		
 	}
+}
+
+void FallenattackPlayerCollision(Fallen & fallen, PlayerShip & player)
+{CollisionData result =
+	staticCollision(player.trans, player.rigidbody, player.collider,
+		fallen.attackT, fallen.attackC, 1);
+    if (result.penetrationDepth >= 0)
+    {
+	player.health -= 5;
+	}
+}
+
+void EnemyorFallenUltimateCollision(Fallen & fallen, EnemyShip & enemy, Ultimate ult)
+{
+	if (ult.lvl1 == true)
+	{
+		CollisionData result1 =
+			staticCollision(enemy.trans, enemy.rigidbody, enemy.collider,
+				ult.trans3, ult.collider3, 0);
+		CollisionData result2 =
+			staticCollision(fallen.sheildT, fallen.sheildR, fallen.sheildC,
+				ult.trans3, ult.collider3, 0);
+	}
+	
+
+
+
 }
