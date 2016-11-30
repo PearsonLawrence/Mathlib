@@ -29,31 +29,6 @@ void PlayerShip::update(float deltatime, Gamestate & gs)
 	shootdelay -= sfw::getDeltaTime();
 	time -= sfw::getDeltaTime();
 	float vinput = 70;
-	
-		
-	for (int i = 0; i < gs.enemyamount; i++)
-	{
-		if (gs.enemy[i].health > 0)
-		{
-			gs.enemy[i].isAlive = true;
-		}
-		if (gs.enemy[i].health <= 0)
-		{
-			gs.enemy[i].isAlive = false;
-			kills++;
-		}
-		
-			
-			if (gs.enemy[i].isAlive == false)
-			{
-				gs.enemy[i].trans.m_position = vec2{ randRange(100,1500),randRange(100,800) };
-				gs.enemy[i].health = 6;
-				gs.enemy[i].isAlive = true;
-
-				
-			}
-		
-	}
 
 	if (shootdelay <= -1)
 	{

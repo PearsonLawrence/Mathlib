@@ -18,9 +18,12 @@ public:
 	spaceshipcontroller controller;
 	Spaceshiplocomotion locomotion;
 	SpriteRenderer renderer;
+
 	int health = 100;
 	int damage;
 	int kills = 0;
+	int killcounter = 20;
+	int ultlvl = 0;
 	float shootdelay = 1;
 	const int maxammo = 5;
 	float time = 3;

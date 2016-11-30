@@ -87,6 +87,7 @@ void Fallen::update(float deltatime, Gamestate & gs)
 {
 	time -= deltatime;
 
+	isAlive = health > 0;
 
 	if (isAlive == true)
 	{

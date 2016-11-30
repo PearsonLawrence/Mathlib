@@ -20,7 +20,7 @@ public:
 	PlanetaryMotor motor, motor2;
 	bool isAlive = false;
 	bool attacking = false;
-	int health = 40;
+	int health = 0;
 	float time = 1;
 	Fallen();
 	void update(float deltatime, class Gamestate &gs);

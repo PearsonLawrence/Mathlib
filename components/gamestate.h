@@ -9,22 +9,25 @@
 #include "bomb.h"
 #include "fallenangel.h"
 #include "Ultimate.h"
+#include "overlay.h"
 class Gamestate
 {
 public:
-	unsigned s = sfw::loadTextureMap("./components/res/wall.jpg");
 
-	 const int enemyamount = 0;
+	/*unsigned d = sfw::loadTextureMap("./res/fontmap.png", 16, 16);*/
+	int d = -1;
+	 const int enemyamount = 40;
 	
 	PlayerShip player;
 	Camera camera;
-	EnemyShip enemy[1]; 
+	EnemyShip enemy[40]; 
 	Bullet bullet[5];
 	Map map;
 	AttackArea attackarea;
 	Bomb bomb;
 	Fallen fallen;
 	Ultimate ultimate;
+
 	void play();
 	void update(float deltaTime);
 	void draw();

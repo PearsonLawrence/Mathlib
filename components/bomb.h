@@ -20,6 +20,9 @@ public:
 	Spaceshiplocomotion loco;
 	RigidBody rigidbody;
 	SpriteRenderer renderer;
+
+	PlayerShip * instigator;
+
 	bool isactive = false;
 	bool explode = false;
 	int bombcount;

@@ -129,6 +129,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="ObjectCollision.cpp" />
+    <ClCompile Include="overlay.cpp" />
     <ClCompile Include="planetarymotor.cpp" />
     <ClCompile Include="planetaryRender.cpp" />
     <ClCompile Include="playership.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="ObjectCollision.h" />
+    <ClInclude Include="overlay.h" />
     <ClInclude Include="planetarymotor.h" />
     <ClInclude Include="planetaryRender.h" />
     <ClInclude Include="playership.h" />

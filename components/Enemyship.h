@@ -16,10 +16,11 @@ public:
 	Spaceshiplocomotion locomotion;
 	SpriteRenderer renderer;
 
-	bool isAlive = true;
 	int health = 6;
 	EnemyShip();
 	void update(float deltatime, class Gamestate &gs);
 	void draw(const mat3 &camera);
 
+	bool isAlive();
+	void onDeath();
 };

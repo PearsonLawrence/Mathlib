@@ -23,6 +23,8 @@ public:
 	bool isactive = false;
 	float shoottime;
 
+	PlayerShip * instigator;
+
 	Bullet();
 	void update(float deltatime, class Gamestate &gs);
 	void draw(const mat3 &camera);

@@ -21,7 +21,7 @@ EnemyShip::EnemyShip()
 
 void EnemyShip::update(float deltatime, Gamestate & gs)
 {
-	if (isAlive == true)
+	if (isAlive())
 	{
 		locomotion.integrate(trans, rigidbody, deltatime);
 		rigidbody.integrate(trans, deltatime);
@@ -33,11 +33,21 @@ void EnemyShip::update(float deltatime, Gamestate & gs)
 void EnemyShip::draw(const mat3 & camera)
 {
 	
-	if (isAlive == true)
+	if (isAlive())
 	{
 		//collider.DebugDraw(camera, trans);
 		//trans.debugDraw(camera);
 		//rigidbody.debugDraw(camera, trans);
 		renderer.draw(camera, trans);
 	}
+}
+
+bool EnemyShip::isAlive()
+{
+	return health > 0;
+}
+
+void EnemyShip::onDeath()
+{
+	
 }

@@ -20,14 +20,24 @@ void Enemycollision(EnemyShip & enemy1, EnemyShip & enemy2)
 }
 
 void bulletenemycollision(EnemyShip & enemy, Bullet & bullet)
-{       CollisionData result =
+{
+	if (!enemy.isAlive()) return;
+	CollisionData result =
 	dynamicCollision(enemy.trans, enemy.rigidbody,enemy.collider,
 		bullet.trans,bullet.rigidbody, enemy.collider,1);
-if (result.penetrationDepth >= 0)
-{
-	bullet.isactive = false;
-	enemy.health -= 2;
-}
+
+	if (result.result())
+	{
+		bullet.isactive = false;
+		enemy.health -= 2;
+
+		if (enemy.isAlive() == false)
+		{
+			bullet.instigator->kills++;
+			bullet.instigator->killcounter++;
+			bullet.instigator->ultlvl++;
+		}
+	}
 }
 
 void PlayerMapCollision(Map & map, PlayerShip & player)
@@ -60,15 +70,28 @@ void AttackAreaCollision(EnemyShip & enemy, AttackArea & attack)
 
 void BombenemyCollision(EnemyShip & enemy, Bomb & bomb)
 {
+	if (!enemy.isAlive()) return;
+
 	CollisionData result =
 		dynamicCollision(enemy.trans, enemy.rigidbody, enemy.collider,
 			bomb.trans, bomb.rigidbody, bomb.collider, 0);
+	
 	if (result.penetrationDepth >= 0 )
 	{
 
 		bomb.explode = true;
+		
 		if (bomb.trans.m_scale.x <= 4.99 && bomb.trans.m_scale.y <= 4.99)
-		enemy.health -= 6;
+			enemy.health -= 6;
+
+		if (enemy.isAlive() == false)
+		{
+			bomb.instigator->kills++;
+			bomb.instigator->killcounter++;
+			bomb.instigator->ultlvl++;
+
+			enemy.onDeath();
+		}
 	}
 
 }
@@ -184,17 +207,47 @@ void FallenattackPlayerCollision(Fallen & fallen, PlayerShip & player)
 
 void EnemyorFallenUltimateCollision(Fallen & fallen, EnemyShip & enemy, Ultimate ult)
 {
+	if (!enemy.isAlive()) return;
 	if (ult.lvl1 == true)
 	{
-		CollisionData result1 =
+		CollisionData result1o1 =
 			staticCollision(enemy.trans, enemy.rigidbody, enemy.collider,
-				ult.trans3, ult.collider3, 0);
-		CollisionData result2 =
-			staticCollision(fallen.sheildT, fallen.sheildR, fallen.sheildC,
-				ult.trans3, ult.collider3, 0);
+				ult.trans1, ult.collider1, 0);
+		CollisionData result2o1 =
+			staticCollision(fallen.trans, fallen.rigidbody, fallen.collider,
+				ult.trans1, ult.collider1, 0);
+		CollisionData result1o2 =
+			staticCollision(enemy.trans, enemy.rigidbody, enemy.collider,
+				ult.trans2, ult.collider2, 0);
+		CollisionData result2o2 =
+			staticCollision(fallen.trans, fallen.rigidbody, fallen.collider,
+				ult.trans2, ult.collider2, 0);
+		CollisionData result1o3 =
+			staticCollision(enemy.trans, enemy.rigidbody, enemy.collider,
+				ult.trans4, ult.collider4, 0);
+		CollisionData result2o3 =
+			staticCollision(fallen.trans, fallen.rigidbody, fallen.collider,
+				ult.trans4, ult.collider4, 0);
+		CollisionData result3 =
+			staticCollision(enemy.trans, enemy.rigidbody, enemy.collider,
+				ult.trans5, ult.collider5, 0);
+		CollisionData result4 =
+			staticCollision(fallen.trans, fallen.rigidbody, fallen.collider,
+				ult.trans5, ult.collider5, 0);
+
+		if (result3.penetrationDepth >= 0)
+		{
+			enemy.health -= 15;
+
+			if (enemy.isAlive() == false)
+			{
+				ult.instigator->kills++;
+				enemy.onDeath();
+			}
+		}
+		if (result4.penetrationDepth >= 0)
+		{
+			fallen.health -= 40;
+		}
 	}
-	
-
-
-
 }
