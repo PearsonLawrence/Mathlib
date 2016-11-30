@@ -58,7 +58,7 @@ Map::Map()
 	render.offset = { 800,450 };
 	render.dimensions = { 1500,900 };
 
-	render.textureHandle = sfw::loadTextureMap("./res/map5.png");
+	render.textureHandle = sfw::loadTextureMap("./res/map4.png");
 	
 
 	// TODO: CLEAN UP AFTER MYSELF

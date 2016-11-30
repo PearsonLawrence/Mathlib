@@ -47,14 +47,17 @@ void Gamestate::play()
 	}
 
 	camera.scalenum = 10.0f;
+
+	for (int i = 0; i < 4; ++i)
+		chain[i].id = i;
 }
 
 void Gamestate::update(float deltaTime)
-{/*
+{
 	if (player.health <= 0)
 	{
 		sfw::termContext();
-	}*/
+	}
 	if (player.killcounter >=40 && !fallen.isAlive && ultimate.activate == false)
 	{
 		//printf("%d", player.kills);
@@ -127,18 +130,30 @@ void Gamestate::update(float deltaTime)
 		}
 	}
 
+	for (int i = 0; i < 4; i++)
+	{
+		chain[i].update(deltaTime, *this);
 
+	}
 	for (int i = 0; i < 5; i++)
 	{
 		if (bullet[i].isactive == true )
 		{
+			
 			bulletfallencollision(fallen, bullet[i]);
 			bulletsmokecollision(fallen, bullet[i]);
 			for (int j = 0; j < enemyamount; j++)
 				if (enemy[j].isAlive())
 				{
 					bulletenemycollision(enemy[j], bullet[i]);
+					for (int k = 0; k < 4; k++)
+					{
+						
+						ChainenemyCollision(enemy[j], chain[k]);
+
+					}
 				}
+			
 			
 		}
 	}
@@ -178,13 +193,20 @@ void Gamestate::draw()
 			if (bullet[i].isactive == true)
 			{
 				bullet[i].draw(cam);
+			
 			}
-		
+		for (int i = 0; i < 4; i++)
+		{
+			chain[i].draw(cam);
+		}
 		attackarea.draw(cam);
 
 	for (int i = 0; i < enemyamount; ++i)
-		if(enemy[i].isAlive())
+		if (enemy[i].isAlive())
+		{
 			enemy[i].draw(cam);
+			
+		}
 
 
 	if (fallen.isAlive == true)

@@ -64,7 +64,7 @@ Fallen::Fallen()
 	circle.offset = { 0,0 };
 	circle.dimensions = { 10,10 };
 	circle.textureHandle = sfw::loadTextureMap("./res/runes.png");
-	renderer.textureHandle = sfw::loadTextureMap("./res/fallen.png");
+	renderer.textureHandle = sfw::loadTextureMap("./res/fallen2.png");
 	
 	attackRend.offset = { 0,0 };
 	attackRend.dimensions = { 10,10 };

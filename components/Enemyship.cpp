@@ -14,7 +14,7 @@ EnemyShip::EnemyShip()
 	renderer.offset = { 0,2 };
 	renderer.dimensions = { 4,4 };
 
-	renderer.textureHandle = sfw::loadTextureMap("./res/enemy.png");
+	renderer.textureHandle = sfw::loadTextureMap("./res/enemys.png");
 
 	
 }

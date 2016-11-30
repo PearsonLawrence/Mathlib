@@ -7,7 +7,7 @@ AttackArea::AttackArea()
 
 	collider = Collider(hullvrts, 8);
 	
-	trans.m_scale = vec2{ 300,300 };
+	trans.m_scale = vec2{ 100,100 };
 }
 
 void AttackArea::update(float deltaTime, Gamestate & gs)

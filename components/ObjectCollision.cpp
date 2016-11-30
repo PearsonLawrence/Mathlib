@@ -251,3 +251,12 @@ void EnemyorFallenUltimateCollision(Fallen & fallen, EnemyShip & enemy, Ultimate
 		}
 	}
 }
+
+void ChainenemyCollision(EnemyShip & enemy, Chain & chain)
+{
+	
+	CollisionData result =
+		staticCollision(enemy.trans, enemy.rigidbody, enemy.collider,
+			chain.trans, chain.collider, 0);
+
+}

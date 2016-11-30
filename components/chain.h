@@ -3,13 +3,13 @@
 #include "Enemyship.h"
 #include "sfwdraw.h"
 #include "spriterenderer.h"
-	// forward declaration
+// forward declaration
 
 
-class Bullet
+class Chain
 {
 private:
-	
+
 	unsigned int color = 0;
 	float freezeTimer = 2;
 
@@ -25,7 +25,11 @@ public:
 	bool chainactive = false;
 	PlayerShip * instigator;
 
-	Bullet();
+	int id;
+
+	vec2 a, b;
+
+	Chain();
 	void update(float deltatime, class Gamestate &gs);
 	void draw(const mat3 &camera);
 

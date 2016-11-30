@@ -122,6 +122,7 @@
     <ClCompile Include="bomb.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="chain.cpp" />
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="Enemyship.cpp" />
     <ClCompile Include="fallenangel.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="bomb.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="chain.h" />
     <ClInclude Include="collider.h" />
     <ClInclude Include="Enemyship.h" />
     <ClInclude Include="fallenangel.h" />

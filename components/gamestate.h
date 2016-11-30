@@ -10,6 +10,7 @@
 #include "fallenangel.h"
 #include "Ultimate.h"
 #include "overlay.h"
+#include "chain.h"
 class Gamestate
 {
 public:
@@ -27,6 +28,7 @@ public:
 	Bomb bomb;
 	Fallen fallen;
 	Ultimate ultimate;
+	Chain chain[4];
 
 	void play();
 	void update(float deltaTime);

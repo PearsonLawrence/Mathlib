@@ -75,7 +75,7 @@ void Ultimate::update(float deltatime, Gamestate & gs)
 	motor3.update(rigid4);
 	pressdelay -= deltatime;
 	ulttime -= deltatime;
-	if (ultcharge >=10)
+	if (ultcharge >=30)
 	{
 		isactive = true;
 	}
@@ -83,7 +83,7 @@ void Ultimate::update(float deltatime, Gamestate & gs)
 	{
 		isactive = false;
 	}
-	if (sfw::getKey('E') && charge == 1 && ultcharge >= 10 && pressdelay <= 0 && isactive == true)
+	if (sfw::getKey('E') && charge == 1 && ultcharge >= 30 && pressdelay <= 0 && isactive == true)
 	{
 		ulttime = 10;
 		pressdelay = 2;
@@ -91,7 +91,7 @@ void Ultimate::update(float deltatime, Gamestate & gs)
 		charge = 2;
 		lvl1 = true;
 	}
-	if (sfw::getKey('E') && charge == 2 && ultcharge >= 11 && pressdelay <= 0 && isactive == true)
+	if (sfw::getKey('E') && charge == 2 && ultcharge >= 45 && pressdelay <= 0 && isactive == true)
 	{
 		ulttime = 10;
 		pressdelay = 1;
@@ -99,7 +99,7 @@ void Ultimate::update(float deltatime, Gamestate & gs)
 		charge = 3;
 		lvl2 = true;
 	}
-	if (sfw::getKey('E') && charge == 3 && ultcharge >= 12 && pressdelay <= 0 && isactive == true)
+	if (sfw::getKey('E') && charge == 3 && ultcharge >= 60 && pressdelay <= 0 && isactive == true)
 	{
 		ulttime = 20;
 		pressdelay = 1;
@@ -108,7 +108,7 @@ void Ultimate::update(float deltatime, Gamestate & gs)
 		lvl3 = true;
 	}
 
-	if (lvl1 == true && ultcharge >= 10 && isactive == true && ulttime >= 0)
+	if (lvl1 == true && ultcharge >= 30 && isactive == true && ulttime >= 0)
 	{
 		trans3.m_position = gs.player.trans.m_position;
 		trans4.m_position = gs.player.trans.m_position;
@@ -135,7 +135,7 @@ void Ultimate::update(float deltatime, Gamestate & gs)
 		}
 		
 	}
-	if (lvl2 == true && ultcharge >= 11 && isactive == true)
+	if (lvl2 == true && ultcharge >= 45 && isactive == true)
 	{
 		trans1.m_position = gs.player.trans.m_position;
 
@@ -151,7 +151,7 @@ void Ultimate::update(float deltatime, Gamestate & gs)
 		}
 		
 	}
-	if (lvl3 == true && ultcharge >= 12 && isactive == true)
+	if (lvl3 == true && ultcharge >= 60 && isactive == true)
 	{
 
 		trans2.m_position = gs.player.trans.m_position;
@@ -171,7 +171,7 @@ void Ultimate::update(float deltatime, Gamestate & gs)
 
 	if (sfw::getKey('R') && charge == 2 && 
 		pressdelay <= 0 && lvl1 == true && 
-		activate == false && gs.player.ultlvl >= 10 && ultcharge >= 10 && isactive == true)
+		activate == false && ultcharge >= 30 && isactive == true)
 	{
 
 		pressdelay = 1;
@@ -195,13 +195,13 @@ void Ultimate::update(float deltatime, Gamestate & gs)
 		}
 	}
 	if (sfw::getKey('R') && charge == 3 && pressdelay <= 0 
-		&& activate == false && gs.player.ultlvl >= 11 && ultcharge >= 11 && isactive == true)
+		&& activate == false && ultcharge >= 45 && isactive == true)
 	{
 
 		pressdelay = 1;
 
 		activate = true;
-		renderer5.textureHandle = sfw::loadTextureMap("./res/roots.png");
+		renderer5.textureHandle = sfw::loadTextureMap("./res/fallenA.png");
 	}
 	if (activate == true && charge == 3)
 	{
@@ -219,7 +219,7 @@ void Ultimate::update(float deltatime, Gamestate & gs)
 		}
 	}
 	if (sfw::getKey('R') && charge == 4 && pressdelay <= 0 
-		&& activate == false && gs.player.ultlvl >= 12 && ultcharge >= 10 && isactive == true)
+		&& activate == false &&  ultcharge >= 60 && isactive == true)
 	{
 
 		pressdelay = 1;
@@ -289,17 +289,17 @@ void Ultimate::draw(const mat3 & camera)
 	{
 		renderer5.draw(camera, trans5);
 	}
-	if (lvl1 == true && isactive == true && ultcharge >= 10)
+	if (lvl1 == true && isactive == true && ultcharge >= 30)
 	{
 		renderer3.draw(camera, trans3);
 		renderer4.draw(camera, trans4);
 	}
-	if (lvl2 == true && isactive == true && ultcharge >= 11)
+	if (lvl2 == true && isactive == true && ultcharge >= 45)
 	{
 		renderer3.draw(camera, trans3);
 		renderer1.draw(camera, trans1);
 	}
-	if (lvl3 == true && isactive == true && ultcharge >= 12)
+	if (lvl3 == true && isactive == true && ultcharge >= 60)
 	{
 		renderer3.draw(camera, trans3);
 		renderer2.draw(camera, trans2);

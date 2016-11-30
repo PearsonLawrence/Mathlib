@@ -22,7 +22,7 @@ Bullet::Bullet()
 		renderer.offset = { 0,0 };
 		renderer.dimensions = { 10,15 };
 
-		renderer.textureHandle = sfw::loadTextureMap("./res/attack2.png");
+		renderer.textureHandle = sfw::loadTextureMap("./res/attack3.png");
 
 	
 }
