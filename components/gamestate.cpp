@@ -72,6 +72,10 @@ void Gamestate::update(float deltaTime)
 		fallen.update(deltaTime, *this);
 		PlayerFallenCollision(player, fallen);
 		FallenAttackAreaCollision(fallen, attackarea);
+		for (int i = 0; i < 4; i++)
+		{
+			ChainFallenCollision(fallen, chain[i]);
+		}
 		if (fallen.attacking == true)
 		{
 

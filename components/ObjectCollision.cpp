@@ -260,3 +260,10 @@ void ChainenemyCollision(EnemyShip & enemy, Chain & chain)
 			chain.trans, chain.collider, 0);
 
 }
+
+void ChainFallenCollision(Fallen & fallen, Chain & chain)
+{
+	CollisionData result =
+		staticCollision(fallen.trans, fallen.rigidbody, fallen.collider,
+			chain.trans, chain.collider, 0);
+}

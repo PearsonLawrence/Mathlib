@@ -27,3 +27,4 @@ void FattackingAttackAreaCollision(Fallen & fallen, AttackArea & attack);
 void FallenattackPlayerCollision(Fallen & fallen, PlayerShip & player);
 void EnemyorFallenUltimateCollision(Fallen & fallen, EnemyShip & enemy, Ultimate ult);
 void ChainenemyCollision(EnemyShip & enemy, Chain & chain);
+void ChainFallenCollision(Fallen & fallen, Chain & chain);
